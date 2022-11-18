@@ -7,31 +7,14 @@
 <body>
 <script type="text/javascript">
 
-    // var authHeaderValue = null;
-    // var username = null;
-    // var password = null;
-    //
-    function login() {
-        //     username = document.getElementById("username").value;
-        //     password = document.getElementById("password").value;
-        //     authHeaderValue = "Basic" + btoa(username + ":" + password);
-        //
-        //     var xmlHttp = new XMLHttpRequest();
-        //     xmlHttp.open("GET", "http://localhost:8081/security");
-        //     xmlHttp.setRequestHeader("Authorization", authHeaderValue);
-        //     xmlHttp.onreadystatechange = function () {
-        //         if (this.readyState == XMLHttpRequest.DONE && this.status == 200) {
-        //             console.log("login successful");
-        //             document.getElementById("lblMsg").innerHTML = "Welcome, " + username;
-        //         } else if (this.readyState == XMLHttpRequest.DONE && this.status == 401) {
-        //             document.getElementById("lblMsg").innerHTML = "INVALID CREDENTIALS";
-        //         }
-        //     }
-        //     xmlHttp.send()
-    }
+
+
+
 
 </script>
+
 <div id="frmLogin">
+    <a href="index.html">MovieDB Homepage</a>
     <h3>Login</h3>
     <br/>
     <label>Username</label>
@@ -42,6 +25,7 @@
     <input type="password" id="password"/>
 
     <button onclick="login().location.href = search.html">Login</button>
+
 </div>
 <style>
     #content {
@@ -49,13 +33,13 @@
     }
     #content {
         position: absolute;
-        top: 30px;
+        top: 40px;
         right: 20px;
     }
 </style>
 <div id="content">
-    <a href="login.html"> Login </a>
-    <a href="index.html"> Homepage </a>
+    <a href="sign_up.html"> Sign Up </a><br/>
+    <a href="index.html"> Homepage </a><br/>
     <a href="favorites.html"> Favorites </a>
 </div>
 <div id="lblMsg"></div>
