@@ -20,24 +20,23 @@
             })
                 .then((res) => res.json())
                 .then((res) => {
-                    for(i = 0; i < (res.Search).length; i++) {
+                    for (i = 0; i < (res.Search).length; i++) {
                         var movieHTML = `</br><button type=\"button\" value="` + res.Search[i].imdbID + `" onclick="fetchMovie(this.value)">` + res.Search[i].Title + "</button><p>"
                             + res.Search[i].Year + "</p>" + "<img src=" + res.Search[i].Poster
                             + `" width=\"185\" height=\"273.79\"><hr>`;
                         movieList.innerHTML += movieHTML;
                     }
-                    if (currentPage < Math.floor((res.totalResults)/10) && currentPage >= 2) {
+                    if (currentPage < Math.floor((res.totalResults) / 10) && currentPage >= 2) {
                         movieList.innerHTML
                             += `<button type="button" value="` + (currentPage - 1)
                             + `" onclick="fetchMovies(this.value)">Previous Page</button>`
                             + `<button type="button" value="` + (currentPage + 1)
                             + `" onclick="fetchMovies(this.value)">Next Page</button>`
-                    }
-                    else if (currentPage >= 2) {
-                            movieList.innerHTML
-                                += `<button type="button" value="` + (currentPage - 1)
-                                + `" onclick="fetchMovies(this.value)">Previous Page</button>`
-                    } else if (currentPage < Math.floor((res.totalResults)/10)) {
+                    } else if (currentPage >= 2) {
+                        movieList.innerHTML
+                            += `<button type="button" value="` + (currentPage - 1)
+                            + `" onclick="fetchMovies(this.value)">Previous Page</button>`
+                    } else if (currentPage < Math.floor((res.totalResults) / 10)) {
                         movieList.innerHTML += `<button type="button" value="` + (currentPage + 1)
                             + `" onclick="fetchMovies(this.value)">Next Page</button>`
                     }
@@ -54,10 +53,10 @@
             })
                 .then((res) => res.json())
                 .then((res) => {
-                        var movieHTML = `</br><h5>` + res.Title + "</h5><p>"
-                            + res.Year + "</p>" + "<img src=" + res.Poster
-                            + `" width=\"185\" height=\"273.79\"><hr>`;
-                        movieList.innerHTML += movieHTML;
+                    var movieHTML = `</br><h5>` + res.Title + "</h5><p>"
+                        + res.Year + "</p>" + "<img src=" + res.Poster
+                        + `" width=\"185\" height=\"273.79\"><hr>`;
+                    movieList.innerHTML += movieHTML;
                 })
         }
 
@@ -112,7 +111,7 @@
         //     movieHTML.innerHTML = "";
         // }
         //
-        window.onload = function() {
+        window.onload = function () {
 
             // username = getCookie("username");
             // password = getCookie("password");
@@ -147,12 +146,14 @@
         //     return "";
         // }
 
+
+
     </script>
 </head>
 <body>
 
 <div>
-    <a href="index.html">MovieDB Homepage</a>
+    <a href="index.html" style="color: white">MovieDB Homepage</a>
     </br>
 </div>
 <hr/>
@@ -165,20 +166,22 @@
 </div>
 
 <div id="userProfile">
-    <a href="favorites.html"> Favorites </a><br/>
-    <a href="login.html"> Login </a><br/>
-    <a href="sign_up.html"> Sign Up </a>
+    <a href="favorites.html" style="color: white"> Favorites </a><br/>
+    <a href="login.html" style="color: white"> Login </a><br/>
+    <a href="sign_up.html" style="color: white"> Sign Up </a>
 
 </div>
 <style>
     #userProfile {
         position: relative;
     }
+
     #userProfile {
         position: absolute;
         top: 40px;
         right: 20px;
     }
+
 </style>
 
 <!--<div id="movieHTML"></div>-->
