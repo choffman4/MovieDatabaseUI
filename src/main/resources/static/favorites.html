@@ -2,18 +2,21 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Favorites</title>
+    <title>Favorite List</title>
+    <script src="javascript/favorites.js"></script>
 </head>
 <body>
 
 
 <div>
     <a href="index.html">MovieDB Homepage</a>
-    <h3>Favorites</h3>
-    <button onclick="getFavorites();">List all Movies</button>
-
-
+    <h3 id="user_favorites">Favorites</h3>
 </div>
+
+<div>
+    <ul id="favoriteListHTML"></ul>
+</div>
+
 <style>
     #content {
         position: relative;
