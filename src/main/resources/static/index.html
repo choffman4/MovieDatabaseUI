@@ -2,7 +2,7 @@
 <html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
-    <title>Movie Database UI</title>
+    <title>Fantasy World UI</title>
     <script type="text/javascript">
 
         var authHeaderValue = null;
@@ -46,12 +46,6 @@
         }
 
         function fetchMovie(imdbID) {
-            localStorage.setItem("imdbID", imdbID);
-
-
-            window.location.href = "movie.html";
-
-
             alert(imdbID)
             var movieList = document.getElementById("movieListHTML");
             movieList.innerHTML = "";
@@ -160,7 +154,6 @@
 <div>
     <a href="index.html">MovieDB Homepage</a>
     </br>
-
 </div>
 <hr/>
 <h1>Movie Database Page!!!</h1>
@@ -172,17 +165,18 @@
 </div>
 
 <div id="userProfile">
-    <a href="sign_in.html">Sign In</a>
-    <a href="sign_up.html">Sign Up</a>
-</div>
+    <a href="favorites.html"> Favorites </a><br/>
+    <a href="login.html"> Login </a><br/>
+    <a href="sign_up.html"> Sign Up </a>
 
+</div>
 <style>
     #userProfile {
         position: relative;
     }
     #userProfile {
         position: absolute;
-        top: 20px;
+        top: 40px;
         right: 20px;
     }
 </style>
