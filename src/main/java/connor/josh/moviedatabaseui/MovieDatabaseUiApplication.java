@@ -8,7 +8,6 @@ public class MovieDatabaseUiApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(MovieDatabaseUiApplication.class, args);
-        //this is connors changes
     }
 
 }
