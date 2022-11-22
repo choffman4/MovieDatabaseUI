@@ -75,7 +75,6 @@ function fetchPreviousMovies(pageNumber, searchTerm) {
         })
 }
 
-
 function fetchMovie(imdbID) {
     sessionStorage.setItem("imdbID", imdbID)
     window.location.href = 'movie.html';
