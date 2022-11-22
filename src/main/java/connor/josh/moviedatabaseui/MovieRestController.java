@@ -13,9 +13,5 @@ public class MovieRestController {
 
     MovieBLL movieBLL = new MovieBLL();
 
-    @RequestMapping(path="/", method= RequestMethod.GET)
-    public List<Movie> findAll() throws IOException {
-        return movieBLL.findAll();
-    }
 
 }
