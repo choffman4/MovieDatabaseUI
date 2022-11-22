@@ -3,7 +3,6 @@ var username = null;
 var password = null;
 
 function fetchMovie(imdbID) {
-    localStorage.removeItem("imdbID")
     var movieList = document.getElementById("movieListHTML");
     movieList.innerHTML = "";
     fetch("http://www.omdbapi.com/?i=" + imdbID + "&plot=full&apikey=7c9d77e9", {
@@ -19,5 +18,5 @@ function fetchMovie(imdbID) {
 }
 
 window.onload = function() {
-    fetchMovie(localStorage.getItem("imdbID"))
+    fetchMovie(sessionStorage.getItem("imdbID"))
 }

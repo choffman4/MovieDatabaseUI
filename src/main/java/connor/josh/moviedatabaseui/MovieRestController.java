@@ -11,11 +11,13 @@ public class MovieRestController {
 
     MovieBLL mb = new MovieBLL();
 
+
     @RequestMapping(path = "", method = RequestMethod.POST)
     @ResponseBody
     public void createReview(@RequestBody Movie review) throws IOException {
         mb.save(review);
     }
+
 
     @RequestMapping(path = "/{id}", method = RequestMethod.PUT)
     public void updateReview(@PathVariable int id, @RequestBody Movie review) throws IOException {
