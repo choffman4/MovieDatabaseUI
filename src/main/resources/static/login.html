@@ -3,24 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <title>User Login</title>
-    <script type="text/javascript"></script>
+    <script src="javascript/login.js"></script>
 </head>
 <body>
 
+<a href="index.html" >MovieDB Homepage</a>
+<h3>Login</h3>
+<br/>
+
 <div id="frmLogin">
-    <a href="index.html" >MovieDB Homepage</a>
-    <h3>Login</h3>
-    <br/>
     <label>Username</label>
-    <input type="text" id="username"/>
+    <input type="text" id="txtUsername"/>
     <br/>
 
     <label>Password</label>
-    <input type="password" id="password"/>
+    <input type="password" id="txtPassword"/>
 
-    <button onclick="">Login</button>
+    <button onclick="login();">Login</button>
 
 </div>
+
+<div id="content">
+    <a href="sign_up.html" > Sign Up </a><br/>
+    <a href="index.html" > Homepage </a><br/>
+    <a href="favorites.html" > Favorites </a>
+</div>
+<div id="lblMsg"></div>
+<br/>
+
+
 <style>
     #content {
         position: relative;
@@ -31,12 +42,6 @@
         right: 20px;
     }
 </style>
-<div id="content">
-    <a href="sign_up.html" > Sign Up </a><br/>
-    <a href="index.html" > Homepage </a><br/>
-    <a href="favorites.html" > Favorites </a>
-</div>
-<div id="lblMsg"></div>
-<br/>
+
 </body>
 </html>
