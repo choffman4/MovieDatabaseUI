@@ -18,6 +18,7 @@ public class MovieBLL {
     public static ArrayList<Movie> allMovies = new ArrayList<>();
     public static ArrayList<Review> allReviews = new ArrayList<>();
 
+    //MOVIE CRUD
     public void addMovie(String imdbID) {
 
         String sql =    "BEGIN" +
@@ -43,23 +44,7 @@ public class MovieBLL {
         }
     }
 
-    public void updateMovieRecommends(Movie movie) throws IOException {
-
-        String sql = "UPDATE moviedb.movie where (imdbid)=(?) set (recommends)=(?);";
-
-        try {
-            Connection con = DriverManager.getConnection(url, user, password);
-            PreparedStatement pst = con.prepareStatement(sql);
-            pst.setString(1, movie.getImdbID());
-            pst.setInt(2, movie.getRecommends());
-            pst.executeUpdate();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public List<Movie> findAll() throws IOException {
+    public List<Movie> findAllMovies() throws IOException {
         String sql = "Select * from moviedb.movie";
         allMovies.clear();
 
@@ -82,7 +67,7 @@ public class MovieBLL {
     }
 
     public Movie findMovie(String imdbID) throws IOException {
-        findAll();
+        findAllMovies();
         Movie foundMovie = new Movie();
         for (Movie movie: allMovies) {
             if(movie.getImdbID() == imdbID) {
@@ -93,8 +78,24 @@ public class MovieBLL {
         return foundMovie;
     }
 
-
+    //MOVIE REVIEW CRUD
     ////////////////////////////////////////////////////////////////////
+    public void updateMovieRecommends(Movie movie) throws IOException {
+
+        String sql = "UPDATE moviedb.movie where imdbid=(?) set recommends=(?);";
+
+        try {
+            Connection con = DriverManager.getConnection(url, user, password);
+            PreparedStatement pst = con.prepareStatement(sql);
+            pst.setString(1, movie.getImdbID());
+            pst.setInt(2, movie.getRecommends());
+            pst.executeUpdate();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public void addMovieRecommendation(String username, String imdbID) throws IOException {
         Movie movie = findMovie(imdbID);
 
@@ -135,16 +136,18 @@ public class MovieBLL {
             e.printStackTrace();
         }
     }
+
+    //MOVIE REVIEW CRUD
     ////////////////////////////////////////////////////////////////////////////////////////////////
-    public void addMovieReview(String username, String review, String imdbid) {
+    public void addMovieReview(Review review) {
         String sql = "INSERT INTO moviedb.moviereview (username, imdbid, review) Values(?, ?, ?)";
 
         try {
             Connection con = DriverManager.getConnection(url, user, password);
             PreparedStatement pst = con.prepareStatement(sql);
-            pst.setString(1, username);
-            pst.setString(2, imdbid);
-            pst.setString(3, review);
+            pst.setString(1, review.getUsername());
+            pst.setString(2, review.getImdbid());
+            pst.setString(3, review.getReview());
             pst.executeUpdate();
 
         } catch (Exception e) {
@@ -152,15 +155,15 @@ public class MovieBLL {
         }
     }
 
-    public void updateMovieReview(String username, String review, String imdbid) {
-        String sql = "UPDATE moviedb.moviereview where (imdbid=(?) and username=(?)) set (review)=(?);";
+    public void updateMovieReview(Review review) {
+        String sql = "UPDATE moviedb.moviereview where (imdbid=(?) and username=(?)) set review=(?);";
 
         try {
             Connection con = DriverManager.getConnection(url, user, password);
             PreparedStatement pst = con.prepareStatement(sql);
-            pst.setString(1, imdbid);
-            pst.setString(2, username);
-            pst.setString(3, review);
+            pst.setString(1, review.getImdbid());
+            pst.setString(2, review.getUsername());
+            pst.setString(3, review.getReview());
             pst.executeUpdate();
 
         } catch (Exception e) {
@@ -207,7 +210,6 @@ public class MovieBLL {
     }
 
     public ArrayList<Review> findMovieReviewByID(String imdbID) throws IOException {
-        findAllMovieReviews();
         ArrayList<Review> movieReviews = new ArrayList<>();
         for (Review review: findAllMovieReviews()) {
             if(review.getImdbid() == imdbID) {
@@ -219,7 +221,6 @@ public class MovieBLL {
     }
 
     public ArrayList<Review> findMovieReviewByUser(String username) throws IOException {
-        findAllMovieReviews();
         ArrayList<Review> movieReviews = new ArrayList<>();
         for (Review review: findAllMovieReviews()) {
             if(review.getUsername() == username) {
