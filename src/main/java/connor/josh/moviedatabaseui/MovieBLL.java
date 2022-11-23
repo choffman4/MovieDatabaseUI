@@ -45,16 +45,14 @@ public class MovieBLL {
         }
     }
 
-    public static void updateMovieRecommends(String imdbID) throws IOException {
-
-        Movie movie = findMovie(imdbID);
+    public static void updateMovieRecommends(Movie movie) throws IOException {
 
         String sql = "UPDATE moviedb.movie where (imdbid)=(?) set (recommends)=(?);";
 
         try {
             Connection con = DriverManager.getConnection(url, user, password);
             PreparedStatement pst = con.prepareStatement(sql);
-            pst.setString(1,imdbID);
+            pst.setString(1, movie.getImdbID());
             pst.setInt(2, movie.getRecommends());
             pst.executeUpdate();
 
@@ -121,7 +119,7 @@ public class MovieBLL {
             pst.executeUpdate();
 
             movie.setRecommends(movie.getRecommends() + 1);
-            updateMovieRecommends(imdbID);
+            updateMovieRecommends(movie);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -141,7 +139,7 @@ public class MovieBLL {
             pst.executeUpdate();
 
             movie.setRecommends(movie.getRecommends() - 1);
-            updateMovieRecommends(imdbID);
+            updateMovieRecommends(movie);
 
         } catch (Exception e) {
             e.printStackTrace();
