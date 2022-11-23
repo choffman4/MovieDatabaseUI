@@ -99,7 +99,14 @@ public class MovieBLL {
     public void addMovieRecommendation(String username, String imdbID) throws IOException {
         Movie movie = findMovie(imdbID);
 
-        String sql = "INSERT INTO moviedb.userrecommends (username, imdbid) Values(?, ?)";
+        String sql =    "BEGIN" +
+                            "IF NOT EXISTS (SELECT * FROM moviedb.userrecommends " +
+                                "WHERE (imdbid=(?) and username=(?))" +
+                            "BEGIN" +
+                            "INSERT INTO moviedb.recommends (imdbid, recommends) " +
+                                "Values(?, ?)" +
+                            "END" +
+                        "END";
 
 
         try {
@@ -107,6 +114,8 @@ public class MovieBLL {
             PreparedStatement pst = con.prepareStatement(sql);
             pst.setString(1, username);
             pst.setString(2, imdbID);
+            pst.setString(3, username);
+            pst.setString(4, imdbID);
             pst.executeUpdate();
 
             movie.setRecommends(movie.getRecommends() + 1);
