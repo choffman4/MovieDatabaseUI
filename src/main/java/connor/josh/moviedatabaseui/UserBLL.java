@@ -14,15 +14,15 @@ public class UserBLL {
     public static boolean accountExists;
     public static boolean passwordMatch;
 
-    public static void addUser(String username, String pass) {
-        String sql = "INSERT INTO usereditor.useraccount (UserName, Password) Values(?, ?)";
+    public void newUser(User newUser) {
+        String sql = "INSERT INTO moviedb.useraccount (UserName, Password) Values(?, ?)";
 
         try {
             Connection con = DriverManager.getConnection(url, user, password);
             PreparedStatement pst = con.prepareStatement(sql);
 
-            pst.setString(1, username);
-            pst.setString(2, pass);
+            pst.setString(1, newUser.getUsername());
+            pst.setString(2, newUser.getPassword());
             pst.executeUpdate();
 
         } catch (Exception e) {
@@ -31,7 +31,7 @@ public class UserBLL {
         }
     }
 
-    public static void accountLogin(String username, String pass) {
+    public User accountLogin(String username, String pass) {
         String sql = "Select password from moviedb.useraccount where username=(?)";
 
         try {
@@ -52,9 +52,10 @@ public class UserBLL {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return null;
     }
 
-    public static void deleteUser(String username, String pass) {
+    public void deleteUser(String username, String pass) {
 
         String sql = "DELETE FROM moviedb.useraccount WHERE username=(?) and password=(?);";
 
@@ -70,7 +71,7 @@ public class UserBLL {
         }
     }
 
-    public static void updateUserPassword(String username, String pass, String newPass) {
+    public void updateUserPassword(String username, String pass, String newPass) {
         String sql = "UPDATE moviedb.useraccount SET password=(?) WHERE username=(?) and password=(?);";
 
         try {
@@ -86,16 +87,47 @@ public class UserBLL {
         }
     }
 
-    public static void updateUsername(String username, String newUsername) {
-        String sql = "UPDATE moviedb.useraccount SET username=(?) WHERE username=(?);";
+    public void updateUsername(String currentUsername, String password, String newUsername) {
+        String sql = "UPDATE moviedb.useraccount SET username=(?) WHERE (username=(?) and password=(?));";
 
         try {
             Connection con = DriverManager.getConnection(url, user, password);
             PreparedStatement pst = con.prepareStatement(sql);
             pst.setString(1,newUsername);
-            pst.setString(2,username);
+            pst.setString(2,currentUsername);
+            pst.setString(3,password);
             pst.executeUpdate();
 
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////
+
+    public void addFavoriteMovie(String username, String imdbID) {
+        String sql = "INSERT INTO moviedb.userfavorite (username, imdbid) Values(?, ?)";
+
+        try {
+            Connection con = DriverManager.getConnection(url, user, password);
+            PreparedStatement pst = con.prepareStatement(sql);
+            pst.setString(1, username);
+            pst.setString(2, imdbID);
+            pst.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteFavoriteMovie(String username, String imdbID) {
+        String sql = "DELETE FROM moviedb.userfavorite WHERE username=(?) and imdbid=(?);";
+
+        try {
+            Connection con = DriverManager.getConnection(url, user, password);
+            PreparedStatement pst = con.prepareStatement(sql);
+            pst.setString(1, username);
+            pst.setString(2, imdbID);
+            pst.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
         }
