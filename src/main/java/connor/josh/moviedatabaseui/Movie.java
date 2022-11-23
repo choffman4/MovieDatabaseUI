@@ -7,7 +7,7 @@ public class Movie {
     private int recommends;
     private String imdbID;
 
-    public static ArrayList<String> movieReviews = new ArrayList<>();
+    public ArrayList<String> movieReviews = new ArrayList<>();
 
     public Movie(String imdbID, int recommends) {
         this.imdbID = imdbID;

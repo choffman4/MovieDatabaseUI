@@ -40,7 +40,7 @@ public class UserRestController {
         ub.deleteUser(username, password);
     }
 
-    @RequestMapping(path = "/addFavoriteMovie/{username}/{imdbid}", method = RequestMethod.DELETE)
+    @RequestMapping(path = "/addFavoriteMovie/{username}/{imdbid}", method = RequestMethod.POST)
     public void addFavoriteMovie(@PathVariable String username, @PathVariable String imdbid) throws IOException {
         ub.addFavoriteMovie(username, imdbid);
     }

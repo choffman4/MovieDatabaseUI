@@ -19,8 +19,9 @@ public class MovieBLL {
     static String password = "test";
 
     public static ArrayList<Movie> allMovies = new ArrayList<>();
+    public static ArrayList<Review> allReviews = new ArrayList<>();
 
-    public static void addMovie(String imdbID) {
+    public void addMovie(String imdbID) {
 
         String sql =    "BEGIN" +
                             "IF NOT EXISTS (SELECT * FROM moviedb.movie " +
@@ -45,7 +46,7 @@ public class MovieBLL {
         }
     }
 
-    public static void updateMovieRecommends(Movie movie) throws IOException {
+    public void updateMovieRecommends(Movie movie) throws IOException {
 
         String sql = "UPDATE moviedb.movie where (imdbid)=(?) set (recommends)=(?);";
 
@@ -61,7 +62,7 @@ public class MovieBLL {
         }
     }
 
-    public static List<Movie> findAll() throws IOException {
+    public List<Movie> findAll() throws IOException {
         String sql = "Select * from moviedb.movie";
         allMovies.clear();
 
@@ -83,7 +84,7 @@ public class MovieBLL {
         return allMovies;
     }
 
-    public static Movie findMovie(String imdbID) throws IOException {
+    public Movie findMovie(String imdbID) throws IOException {
         findAll();
         Movie foundMovie = new Movie();
         for (Movie movie: allMovies) {
@@ -97,25 +98,17 @@ public class MovieBLL {
 
 
     ////////////////////////////////////////////////////////////////////
-    public static void addMovieRecommendation(String username, String imdbID) throws IOException {
+    public void addMovieRecommendation(String username, String imdbID) throws IOException {
         Movie movie = findMovie(imdbID);
 
-        String sql =    "BEGIN" +
-                            "IF NOT EXISTS (SELECT * FROM moviedb.userrecommends " +
-                                "WHERE (username)=(?) and (imdbid)=(?)" +
-                            "BEGIN" +
-                            "INSERT INTO moviedb.userrecommends (username, imdbid) " +
-                                "Values(?, ?)" +
-                            "END" +
-                        "END";
+        String sql = "INSERT INTO moviedb.userrecommends (username, imdbid) Values(?, ?)";
+
 
         try {
             Connection con = DriverManager.getConnection(url, user, password);
             PreparedStatement pst = con.prepareStatement(sql);
             pst.setString(1, username);
             pst.setString(2, imdbID);
-            pst.setString(3, username);
-            pst.setString(4, imdbID);
             pst.executeUpdate();
 
             movie.setRecommends(movie.getRecommends() + 1);
@@ -126,7 +119,7 @@ public class MovieBLL {
         }
     }
 
-    public static void removeMovieRecommendation(String username, String imdbID) throws IOException {
+    public void removeMovieRecommendation(String username, String imdbID) throws IOException {
         String sql = "DELETE FROM moviedb.userrecommends WHERE (username)=(?) and (imdbid)=(?)";
 
         Movie movie = findMovie(imdbID);
@@ -145,6 +138,103 @@ public class MovieBLL {
             e.printStackTrace();
         }
     }
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    public void addMovieReview(String username, String review, String imdbid) {
+        String sql = "INSERT INTO moviedb.moviereview (username, imdbid, review) Values(?, ?, ?)";
 
+        try {
+            Connection con = DriverManager.getConnection(url, user, password);
+            PreparedStatement pst = con.prepareStatement(sql);
+            pst.setString(1, username);
+            pst.setString(2, imdbid);
+            pst.setString(3, review);
+            pst.executeUpdate();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateMovieReview(String username, String review, String imdbid) {
+        String sql = "UPDATE moviedb.moviereview where (imdbid=(?) and username=(?)) set (review)=(?);";
+
+        try {
+            Connection con = DriverManager.getConnection(url, user, password);
+            PreparedStatement pst = con.prepareStatement(sql);
+            pst.setString(1, imdbid);
+            pst.setString(2, username);
+            pst.setString(3, review);
+            pst.executeUpdate();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteMovieReview(String username, String imdbid) {
+        String sql = "DELETE FROM moviedb.moviereview WHERE username=(?) and imdbid=(?)";
+
+        try {
+            Connection con = DriverManager.getConnection(url, user, password);
+            PreparedStatement pst = con.prepareStatement(sql);
+            pst.setString(1, username);
+            pst.setString(2, imdbid);
+            pst.executeUpdate();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public ArrayList<Review> AllMovieReviews() throws IOException {
+        String sql = "Select * from moviedb.movie";
+        allReviews.clear();
+
+        try {
+            Connection con = DriverManager.getConnection(url, user, password);
+            PreparedStatement pst = con.prepareStatement(sql);
+            ResultSet rs = pst.executeQuery();
+
+            while(rs.next()) {
+                String imdbID = rs.getString("imdbid");
+                String username = rs.getString("username");
+                String review = rs.getString("review");
+                Review movieReview = new Review(imdbID, username, review);
+                allReviews.add(movieReview);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return allReviews;
+    }
+
+    public ArrayList<Review> findMovieReviewbyID(String imdbID) throws IOException {
+        findAllReviews();
+        ArrayList<Review> movieReviews = new ArrayList<>();
+        for (Review review: AllMovieReviews()) {
+            if(review.getImdbid() == imdbID) {
+                movieReviews.add(review);
+            }
+
+        }
+        return movieReviews;
+    }
+
+    public ArrayList<Review> findMovieReviewbyUser(String username) throws IOException {
+        findAllReviews();
+        ArrayList<Review> movieReviews = new ArrayList<>();
+        for (Review review: AllMovieReviews()) {
+            if(review.getUsername() == username) {
+                movieReviews.add(review);
+            }
+
+        }
+        return movieReviews;
+    }
+
+    public ArrayList<String> findAllReviews() {
+
+    }
 
 }
