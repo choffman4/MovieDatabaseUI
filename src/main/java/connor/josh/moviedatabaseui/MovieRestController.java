@@ -1,6 +1,5 @@
 package connor.josh.moviedatabaseui;
 
-import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -34,12 +33,12 @@ public class MovieRestController {
 
     @RequestMapping(path="/reviews/{imdbid}", method = RequestMethod.GET)
     public ArrayList<Review> findReviews(@PathVariable String imdbid) throws IOException {
-        return mb.findMovieReviewbyID(imdbid);
+        return mb.findMovieReviewByID(imdbid);
     }
 
     @RequestMapping(path="/reviews/{username}", method = RequestMethod.GET)
     public ArrayList<Review> findReviewsbyUser(@PathVariable String username) throws IOException {
-        return mb.findMovieReviewbyUser(username);
+        return mb.findMovieReviewByUser(username);
     }
 
 

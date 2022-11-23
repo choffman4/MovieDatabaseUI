@@ -1,8 +1,5 @@
 package connor.josh.moviedatabaseui;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -186,7 +183,7 @@ public class MovieBLL {
         }
     }
 
-    public ArrayList<Review> AllMovieReviews() throws IOException {
+    public ArrayList<Review> findAllMovieReviews() throws IOException {
         String sql = "Select * from moviedb.movie";
         allReviews.clear();
 
@@ -209,10 +206,10 @@ public class MovieBLL {
         return allReviews;
     }
 
-    public ArrayList<Review> findMovieReviewbyID(String imdbID) throws IOException {
-        findAllReviews();
+    public ArrayList<Review> findMovieReviewByID(String imdbID) throws IOException {
+        findAllMovieReviews();
         ArrayList<Review> movieReviews = new ArrayList<>();
-        for (Review review: AllMovieReviews()) {
+        for (Review review: findAllMovieReviews()) {
             if(review.getImdbid() == imdbID) {
                 movieReviews.add(review);
             }
@@ -221,20 +218,16 @@ public class MovieBLL {
         return movieReviews;
     }
 
-    public ArrayList<Review> findMovieReviewbyUser(String username) throws IOException {
-        findAllReviews();
+    public ArrayList<Review> findMovieReviewByUser(String username) throws IOException {
+        findAllMovieReviews();
         ArrayList<Review> movieReviews = new ArrayList<>();
-        for (Review review: AllMovieReviews()) {
+        for (Review review: findAllMovieReviews()) {
             if(review.getUsername() == username) {
                 movieReviews.add(review);
             }
 
         }
         return movieReviews;
-    }
-
-    public ArrayList<String> findAllReviews() {
-
     }
 
 }
