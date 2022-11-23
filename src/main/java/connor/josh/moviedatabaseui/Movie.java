@@ -1,9 +1,13 @@
 package connor.josh.moviedatabaseui;
 
+import java.util.ArrayList;
+
 public class Movie {
 
     private int recommends;
     private String imdbID;
+
+    public static ArrayList<String> movieReviews = new ArrayList<>();
 
     public Movie(String imdbID, int recommends) {
         this.imdbID = imdbID;
