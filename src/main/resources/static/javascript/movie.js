@@ -10,9 +10,8 @@ function fetchMovie(imdbID) {
     })
         .then((res) => res.json())
         .then((res) => {
-            var movieHTML = `</br><h5>` + res.Title + "</h5><p>"
-                + res.Year + "</p>" + "<img src=" + res.Poster
-                + `" width=\"185\" height=\"273.79\"><hr>`;
+            var movieHTML = "</br>" + "<img src='" + res.Poster + "' width='185' height='273.79' >"
+                + "<div id='movieDetails'> <h4>" + res.Title + "</h4><p>"+ res.Year +"</p></div>"
             movieList.innerHTML += movieHTML;
         })
 }
