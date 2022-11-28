@@ -8,9 +8,8 @@
 <body>
 
 <div id="frmLogin">
-    <a href="index.html" >MovieDB Homepage</a>
+    <div STYLE="font-size:18.0pt"  id="homepageHref"><a href="index.html" >Homepage</a></div> </br> </br> <hr/>
     <h3>Login</h3>
-    <br/>
     <label>Username</label>
     <input type="text" id="username"/>
     <br/>
@@ -27,14 +26,17 @@
     }
     #content {
         position: absolute;
-        top: 40px;
+        top: 7px;
         right: 20px;
+    }
+
+    #homepageHref {
+        position: relative;
+        top: 10px;
     }
 </style>
 <div id="content">
     <a href="sign_up.html" > Sign Up </a><br/>
-    <a href="index.html" > Homepage </a><br/>
-    <a href="favorites.html" > Favorites </a>
 </div>
 <div id="lblMsg"></div>
 <br/>
