@@ -10,9 +10,14 @@ function fetchMovie(imdbID) {
     })
         .then((res) => res.json())
         .then((res) => {
-            var movieHTML = `</br><h5>` + res.Title + "</h5><p>"
-                + res.Year + "</p>" + "<img src=" + res.Poster
-                + `" width=\"185\" height=\"273.79\"><hr>`;
+            var movieHTML = "</br>" + "<img src='" + res.Poster + "' width='185' height='273.79' >"
+                + "<div id='movieDetails'> <h4>" + res.Title + "</h4><p>"+ "Released: " + res.Released + ","
+                + "</br>" + "Rated: "+ res.Rated + "," + "</br>" + "Runtime: " + res.Runtime + "," + "</br>"
+                + "Genre: " + res.Genre + "," + "</br>" + "Director: " + res.Director + "," + "</br>"
+                + "Writer: " + res.Writer + "," + "</br>" + "Actors: " + res.Actors + "," + "</br>" + "Language: "
+                + res.Language + "," + "</br>" + "Country: " + res.Country + "," + "</br>" + "Awards: "
+                + res.Awards + "," + "</br>" + "BoxOffice Sales: " + res.BoxOffice + "," + "</br>" + "Metascore: "
+                + res.Metascore + "," + "</br>" + "imdbRating: " + res.imdbRating  +"</p></div>"
             movieList.innerHTML += movieHTML;
         })
 }
