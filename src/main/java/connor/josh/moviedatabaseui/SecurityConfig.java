@@ -25,7 +25,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        //loop through
+        //loop through database
         auth.inMemoryAuthentication().withUser("connor")
                 .password(passwordEncoder().encode("password"))
                 .authorities("USER");

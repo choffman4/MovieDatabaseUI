@@ -13,7 +13,7 @@ public class MovieRestController {
     MovieBLL mb = new MovieBLL();
 
     //REVIEWS
-    ///////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////q
     @RequestMapping(path = "/createReview", method = RequestMethod.POST)
     @ResponseBody
     public void addReview(@RequestBody Review review) throws IOException {
@@ -53,7 +53,6 @@ public class MovieRestController {
     public void removeRecommendation(@PathVariable String username, @PathVariable String imdbid) throws IOException {
         mb.removeMovieRecommendation(username, imdbid);
     }
-
 
 
     //MOVIES
