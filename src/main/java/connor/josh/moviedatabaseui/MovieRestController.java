@@ -3,6 +3,7 @@ package connor.josh.moviedatabaseui;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -11,65 +12,59 @@ public class MovieRestController {
 
     MovieBLL mb = new MovieBLL();
 
-//
-//    @RequestMapping(path = "", method = RequestMethod.POST)
-//    @ResponseBody
-//    public void createReview(@RequestBody Movie review) throws IOException {
-//        mb.save(review);
-//    }
-//
-//
-//    @RequestMapping(path = "/{id}", method = RequestMethod.PUT)
-//    public void updateReview(@PathVariable int id, @RequestBody Movie review) throws IOException {
-//        review.setId(id);
-//        mb.update(review);
-//    }
-//
-//    @ResponseBody
-//    @RequestMapping(path = "", method = RequestMethod.GET)
-//    public List<Movie> findAllReviews() {
-//        return mb.findAll();
-//    }
-//
-//    @RequestMapping(path = "/{id}", method = RequestMethod.GET)
-//    public Movie findReviewById(@PathVariable int id) {
-//        return mb.findById(id);
-//    }
-//
-//    @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
-//    public void deleteReview(@PathVariable int id) throws IOException {
-//        mb.delete(id);
-//    }
-//
-//    //above is movie review
-//    //-------------------------------------------------------------------------------------------
-//    //below is movie recommends
-//    @RequestMapping(path = "", method = RequestMethod.POST)
-//    @ResponseBody
-//    public void createRecommendation(@RequestBody Movie recommendation) throws IOException {
-//        mb.save(recommendation);
-//    }
-//
-//    @RequestMapping(path = "/{id}", method = RequestMethod.PUT)
-//    public void updateRecommendation(@PathVariable int id, @RequestBody Movie recommendation) throws IOException {
-//        recommendation.setId(id);
-//        mb.update(recommendation);
-//    }
-//
-//    @ResponseBody
-//    @RequestMapping(path = "", method = RequestMethod.GET)
-//    public List<Movie> findAllRecommendation() {
-//        return mb.findAll();
-//    }
-//
-//    @RequestMapping(path = "/{id}", method = RequestMethod.GET)
-//    public Movie findRecommendationById(@PathVariable int id) {
-//        return mb.findById(id);
-//    }
-//
-//    @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
-//    public void deleteRecommendation(@PathVariable int id) throws IOException {
-//        mb.delete(id);
-//    }
+    //REVIEWS
+    ///////////////////////////////////////////////////////////////////////////////q
+    @RequestMapping(path = "/createReview", method = RequestMethod.POST)
+    @ResponseBody
+    public void addReview(@RequestBody Review review) throws IOException {
+        mb.addMovieReview(review);
+    }
+
+
+    @RequestMapping(path = "/updateReview", method = RequestMethod.PUT)
+    @ResponseBody
+    public void updateReview(@RequestBody Review review) throws IOException {
+        mb.updateMovieReview(review);
+    }
+
+    @RequestMapping(path = "/deleteReview/{username}/{imdbid}", method = RequestMethod.DELETE)
+    public void deleteReview(@PathVariable String username, @PathVariable String imdbid) throws IOException {
+        mb.deleteMovieReview(username, imdbid);
+    }
+
+    @RequestMapping(path="/reviews/{imdbid}", method = RequestMethod.GET)
+    public ArrayList<Review> findReviews(@PathVariable String imdbid) throws IOException {
+        return mb.findMovieReviewByID(imdbid);
+    }
+
+    @RequestMapping(path="/reviews/{username}", method = RequestMethod.GET)
+    public ArrayList<Review> findReviewsbyUser(@PathVariable String username) throws IOException {
+        return mb.findMovieReviewByUser(username);
+    }
+
+    //RECOMMENDS
+    ///////////////////////////////////////////////////////////////////////////////
+    @RequestMapping(path = "/recommends/add/{username}/{imdbid}", method = RequestMethod.POST)
+    public void addRecommendation(@PathVariable String username, @PathVariable String imdbid) throws IOException {
+        mb.addMovieRecommendation(username, imdbid);
+    }
+
+    @RequestMapping(path = "/recommends/remove/{username}/{imdbid}", method = RequestMethod.DELETE)
+    public void removeRecommendation(@PathVariable String username, @PathVariable String imdbid) throws IOException {
+        mb.removeMovieRecommendation(username, imdbid);
+    }
+
+
+    //MOVIES
+    ////////////////////////////////////////////////////////////////////////////////
+    @RequestMapping(path = "/", method = RequestMethod.GET)
+    public List<Movie> findAllMovies() throws IOException {
+        return mb.findAllMovies();
+    }
+
+    @RequestMapping(path = "/{imdbid}", method = RequestMethod.GET)
+    public Movie findMovie(@PathVariable String imdbid) throws IOException {
+        return mb.findMovie(imdbid);
+    }
 
 }

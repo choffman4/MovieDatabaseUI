@@ -51,7 +51,7 @@ function fetchPreviousMovies(pageNumber, searchTerm) {
         .then((res) => res.json())
         .then((res) => {
             for(i = 0; i < (res.Search).length; i++) {
-                var movieHTML = `</br><button type=\"button\" value="` + res.Search[i].imdbID + `" onclick="fetchMovie(this.value)">` + res.Search[i].Title + "</button><p>"
+                var movieHTML = `</br><button type="button" value="` + res.Search[i].imdbID + `" onclick="fetchMovie(this.value)">` + res.Search[i].Title + "</button><p>"
                     + res.Search[i].Year + "</p>" + "<img src=" + res.Search[i].Poster
                     + `" width=\"185\" height=\"273.79\"><hr>`;
                 movieList.innerHTML += movieHTML;
