@@ -15,13 +15,23 @@
 <div>
     <ul id="movieListHTML"></ul>
 </div>
+<div id="buttonLocation">
+    <button onclick="reccomend;">Like</button>
+    <input type="checkbox" id="reccomendCheckbox">
+    <button onclick="favorite;">Favorite</button>
+    <input type="checkbox" id="favoriteCheckbox">
+</div>
 <style>
     #movieDetails {
         position: absolute;
         top: 15%;
         left: 15%;
     }
-
+    #buttonLocation {
+        position: relative;
+        top:10px;
+        left:55px
+    }
     p {
         padding-top:2px;
         padding-bottom:2px
