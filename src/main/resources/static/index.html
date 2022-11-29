@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html" xmlns:left="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>MovieDB</title>
+    <script src="javascript/index.js"></script>
+</head>
+<body>
+<div>
+    <div STYLE="font-size:18.0pt"  id="homepageHref"><a href="index.html" >Homepage</a></div>
+    </br>
+    </br>
+</div>
+<hr/>
+<h1>Movie Database!!!</h1>
+</br>
+<div>
+    <label for="entity_search">Search:</label>
+    <input type="text" id="entity_search" name="entity_search">
+    <button onclick="fetchMovies(1);">Search</button>
+</div>
+<div id="userProfile">
+    <a href="favorites.html" > Profile </a><br/>
+    <a href="login.html" > Login </a><br/>
+    <a href="sign_up.html" > Sign Up </a>
+</div>
+<style>
+    #userProfile {
+        position: relative;
+    }
+
+    #userProfile {
+        position: absolute;
+        top: 7px;
+        right: 20px;
+    }
+    #homepageHref {
+        position: relative;
+        top: 10px;
+    }
+
+</style>
+
+<!--<div id="movieHTML"></div>-->
+
+<div>
+    <ul id="movieListHTML"></ul>
+</div>
+</body>
+</html>
