@@ -6,32 +6,24 @@
     <script src="javascript/favorites.js"></script>
 </head>
 <body>
+<div STYLE="font-size:18.0pt"  id="homepageHref"><a href="index.html" >Homepage</a></div> </br> </br> <hr/>
+<h3 id="user_favorites">Favorites</h3>
 <div>
-    <div STYLE="font-size:18.0pt"  id="homepageHref"><a href="index.html" >Homepage</a></div> </br> </br> <hr/>
-    <h3 id="user_favorites">Favorites</h3>
-    <button onclick="getFavorites();">List all Movies</button>
+    <button onclick="getFavorites();">List Favorites</button>
 </div>
-
-
 <div>
     <ul id="favoriteListHTML"></ul>
 </div>
+<div id="content">
+    <a href="index.html" > Homepage </a><br/>
 
+</div>
 <style>
-    #content {
-        position: relative;
-    }
-
     #content {
         position: absolute;
         top: 40px;
         right: 20px;
     }
 </style>
-<div id="content">
-    <a href="index.html" > Homepage </a><br/>
-    <a href="login.html" > Login </a><br/>
-    <a href="sign_up.html" > Sign Up </a>
-</div>
 </body>
 </html>
