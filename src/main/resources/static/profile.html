@@ -2,10 +2,38 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+
     <title>Profile Page</title>
     <script src="javascript/profile.js"></script>
+
 </head>
 <body>
+<div STYLE="font-size:18.0pt"  id="homepageHref"><a href="index.html" >Homepage</a></div> </br> </br> <hr/>
+<h1>User Profile</h1>
+</br>
+<div id="hrefLinks">
+    <a href="logout.js" > Logout </a>
+</div>
+<div id="buttonLocation">
+    <button onclick="fetchFavorites();">List Favorites</button>
+    <button onclick="changeUsername();">Change Username</button>
+    <button onclick="changePassword();">Change Password</button>
+</div>
+<style>
+    #buttonLocation{
+        position:relative;
+        left: 30px
+    }
+    #hrefLinks {
+        position: absolute;
+        top: 7px;
+        right: 20px;
+    }
+    #homepageHref {
+        position: relative;
+        top: 10px;
+    }
 
+</style>
 </body>
 </html>
