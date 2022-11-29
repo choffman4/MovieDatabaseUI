@@ -24,4 +24,6 @@ function fetchMovie(imdbID) {
 
 window.onload = function() {
     fetchMovie(sessionStorage.getItem("imdbID"))
+    username = getCookie("username");
+    password = getCookie("password");
 }

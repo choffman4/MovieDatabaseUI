@@ -15,6 +15,7 @@ function login() {
             console.log("LOGIN SUCCESS");
             document.getElementById("lblMsg").innerHTML = "Welcome, " + username;
             makeCookie();
+            // window.location.href = 'profile.html';
             showLoginForm(false);
         } else if (this.readyState === XMLHttpRequest.DONE && this.status === 401) {
             document.getElementById("lblMsg").innerHTML = "INVALID USERNAME/PASSWORD";
@@ -44,9 +45,16 @@ function makeCookie() {
     document.cookie = "password=" + password + "; path=/favorites.js";
     document.cookie = "username=" + username + "; path=/sign_up.js";
     document.cookie = "password=" + password + "; path=/sign_up.js";
+    document.cookie = "username=" + username + "; path=/profile.js";
+    document.cookie = "password=" + password + "; path=/profile.js";
 }
 
 window.onload = function() {
     console.log("page loading...");
-    showLoginForm(true);
+    if ((getCookie("username") != null) && (getCookie("password") != null)) {
+        showLoginForm(true);
+    } else {
+        showLoginForm(false);
+        alert(getCookie("username") + " is already logged in")
+    }
 }
