@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Sign Up</title>
-    <script type="module" src="javascript/sign_up.js"></script>
+    <script src="javascript/sign_up.js"></script>
 </head>
 <body>
 <div id="signup">
@@ -16,13 +16,16 @@
     <label>Password</label>
     <input type="password" id="password"/>
     <br/>
-    <button onclick="createUser()">Create Account</button>
+
+    <button onclick="newUser();">Create Account</button>
+    
 </div>
 <div id="hrefLinks">
     <a href="login.html" > Login </a><br/>
     <a href="index.html" > Homepage </a><br/>
-    <a href="favorites.html" >  Favorites </a>
+    <a href="profile.html" >  Profile </a>
 </div>
+
 <style>
     #hrefLinks {
         position: absolute;

@@ -9,16 +9,16 @@ public class UserBLL {
 
     static String url = "jdbc:mysql://localhost:3306/moviedb?allowPublicKeyRetrieval=true&useSSL=false";
     static String user = "root";
-    static String password = "test";
+    static String pass = "test";
 
-    public static boolean accountExists;
+//    public static boolean accountExists;
     public static boolean passwordMatch;
 
     public void newUser(User newUser) {
-        String sql = "INSERT INTO moviedb.useraccount (UserName, Password) Values(?, ?)";
+        String sql = "INSERT INTO moviedb.useraccount (username, password) Values(?, ?)";
 
         try {
-            Connection con = DriverManager.getConnection(url, user, password);
+            Connection con = DriverManager.getConnection(url, user, pass);
             PreparedStatement pst = con.prepareStatement(sql);
 
             pst.setString(1, newUser.getUsername());
@@ -26,7 +26,7 @@ public class UserBLL {
             pst.executeUpdate();
 
         } catch (Exception e) {
-            accountExists = true;
+//            accountExists = true;
             e.printStackTrace();
         }
     }
@@ -35,7 +35,7 @@ public class UserBLL {
         String sql = "Select password from moviedb.useraccount where username=(?)";
 
         try {
-            Connection con = DriverManager.getConnection(url, user, password);
+            Connection con = DriverManager.getConnection(url, user, pass);
             PreparedStatement pst = con.prepareStatement(sql);
             pst.setString(1,username);
             ResultSet rs = pst.executeQuery();
@@ -60,7 +60,7 @@ public class UserBLL {
         String sql = "DELETE FROM moviedb.useraccount WHERE username=(?) and password=(?);";
 
         try {
-            Connection con = DriverManager.getConnection(url, user, password);
+            Connection con = DriverManager.getConnection(url, user, pass);
             PreparedStatement pst = con.prepareStatement(sql);
             pst.setString(1,username);
             pst.setString(2,pass);
@@ -75,7 +75,7 @@ public class UserBLL {
         String sql = "UPDATE moviedb.useraccount SET password=(?) WHERE username=(?) and password=(?);";
 
         try {
-            Connection con = DriverManager.getConnection(url, user, password);
+            Connection con = DriverManager.getConnection(url, user, pass);
             PreparedStatement pst = con.prepareStatement(sql);
             pst.setString(1,newPass);
             pst.setString(2,username);
@@ -91,7 +91,7 @@ public class UserBLL {
         String sql = "UPDATE moviedb.useraccount SET username=(?) WHERE (username=(?) and password=(?));";
 
         try {
-            Connection con = DriverManager.getConnection(url, user, password);
+            Connection con = DriverManager.getConnection(url, user, pass);
             PreparedStatement pst = con.prepareStatement(sql);
             pst.setString(1,newUsername);
             pst.setString(2,currentUsername);
@@ -109,7 +109,7 @@ public class UserBLL {
         String sql = "INSERT INTO moviedb.userfavorite (username, imdbid) Values(?, ?)";
 
         try {
-            Connection con = DriverManager.getConnection(url, user, password);
+            Connection con = DriverManager.getConnection(url, user, pass);
             PreparedStatement pst = con.prepareStatement(sql);
             pst.setString(1, username);
             pst.setString(2, imdbID);
@@ -123,7 +123,7 @@ public class UserBLL {
         String sql = "DELETE FROM moviedb.userfavorite WHERE username=(?) and imdbid=(?);";
 
         try {
-            Connection con = DriverManager.getConnection(url, user, password);
+            Connection con = DriverManager.getConnection(url, user, pass);
             PreparedStatement pst = con.prepareStatement(sql);
             pst.setString(1, username);
             pst.setString(2, imdbID);
