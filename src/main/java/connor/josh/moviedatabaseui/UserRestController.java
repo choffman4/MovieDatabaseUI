@@ -30,9 +30,9 @@ public class UserRestController {
         ub.updateUserPassword(username, currentPass, newPassword);
     }
 
-    @RequestMapping(path = "/login/{username}/{password}", method = RequestMethod.GET)
-    public User login(@PathVariable String username, @PathVariable String password) {
-        return ub.accountLogin(username, password);
+    @RequestMapping(path = "/login", method = RequestMethod.POST)
+    public User login(@RequestBody User user) {
+        return ub.accountLogin(user.getUsername(), user.getPassword());
     }
 
     @RequestMapping(path = "/deleteUser/{username}/{password}", method = RequestMethod.DELETE)

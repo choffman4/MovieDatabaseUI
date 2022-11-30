@@ -11,9 +11,6 @@ public class UserBLL {
     static String user = "root";
     static String pass = "test";
 
-//    public static boolean accountExists;
-    public static boolean passwordMatch;
-
     public void newUser(User newUser) {
         String sql = "INSERT INTO moviedb.useraccount (username, password) Values(?, ?)";
 
@@ -26,33 +23,29 @@ public class UserBLL {
             pst.executeUpdate();
 
         } catch (Exception e) {
-//            accountExists = true;
             e.printStackTrace();
         }
     }
 
-    public User accountLogin(String username, String pass) {
-        String sql = "Select password from moviedb.useraccount where username=(?)";
+    public User accountLogin(String username, String password) {
+        String sql = "Select * from moviedb.useraccount where username=(?) and password=(?)";
+        User foundUser = new User();
 
         try {
             Connection con = DriverManager.getConnection(url, user, pass);
             PreparedStatement pst = con.prepareStatement(sql);
             pst.setString(1,username);
+            pst.setString(2,password);
             ResultSet rs = pst.executeQuery();
 
             if (rs.next()) {
-                if (pass.equals(rs.getString("password"))) {
-                    System.out.println("password match");
-                    passwordMatch = true;
-                } else {
-                    System.out.println("access denied, try again");
-                    passwordMatch = false;
-                }
+                foundUser.setUsername(rs.getString("username"));
+                foundUser.setPassword(rs.getString("password"));
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return null;
+        return foundUser;
     }
 
     public void deleteUser(String username, String pass) {
