@@ -28,11 +28,11 @@ function login() {
 
 function showLoginForm(bTF) {
     if (bTF === true) {
-        document.getElementById('accountLinks').style.visibility = "none";
-        document.getElementById('hrefLinks').style.visibility = "block";
-    } else {
         document.getElementById('accountLinks').style.visibility = "block";
         document.getElementById('hrefLinks').style.visibility = "none";
+    } else {
+        document.getElementById('accountLinks').style.visibility = "none";
+        document.getElementById('hrefLinks').style.visibility = "block";
     }
 }
 
