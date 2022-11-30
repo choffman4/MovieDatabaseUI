@@ -15,11 +15,20 @@
     <button onclick="fetchMovies(1);">Search</button>
 </div>
 <div id="hrefLinks">
+    <a href="login.html" > Login </a><br/>
+    <a href="sign_up.html" > Sign Up </a><br/>
+</div>
+<div id="accountLinks">
     <a href="profile.html" > Profile </a><br/>
-    <a href="logout.js" > Logout </a>
+    <a href="favorites.html" > Favorites </a>
 </div>
 <style>
     #hrefLinks {
+        position: absolute;
+        top: 7px;
+        right: 20px;
+    }
+    #accountLinks {
         position: absolute;
         top: 7px;
         right: 20px;
@@ -28,11 +37,7 @@
         position: relative;
         top: 10px;
     }
-
 </style>
-
-<!--<div id="movieHTML"></div>-->
-
 <div>
     <ul id="movieListHTML"></ul>
 </div>
