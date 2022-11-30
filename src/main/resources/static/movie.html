@@ -15,29 +15,44 @@
 <div>
     <ul id="movieListHTML"></ul>
 </div>
+<div id="buttonLocation">
+    <button onclick="recommend;">Like</button>
+    <input type="checkbox" id="recommendCheckbox">
+    <button onclick="favorite;">Favorite</button>
+    <input type="checkbox" id="favoriteCheckbox">
+</div>
+<div id="hrefLinks">
+    <a href="favorites.html" > Profile </a><br/>
+    <a href="logout.js" > Logout </a>
+</div>
 <style>
+    #hrefLinks {
+        position: absolute;
+        top: 7px;
+        right: 20px;
+    }
     #movieDetails {
         position: absolute;
         top: 15%;
         left: 15%;
     }
-
+    #buttonLocation {
+        position: relative;
+        top:10px;
+        left:55px
+    }
     p {
         padding-top:2px;
         padding-bottom:2px
     }
-
     h4 {
         margin-bottom:0px;
         padding-bottom:0px
     }
-
     #homepageHref {
         position: relative;
         top: 10px;
     }
 </style>
-
-
 </body>
 </html>
