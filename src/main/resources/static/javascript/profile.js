@@ -1,6 +1,7 @@
 var authHeaderValue = null;
 var username = null;
 var password = null;
+var foundUser = null;
 
 function getCookie(cname) {
     let name = cname + "=";
@@ -21,21 +22,37 @@ function getCookie(cname) {
 window.onload = function() {
     username = getCookie("username");
     password = getCookie("password");
-    // loadPlanets();
+    checkUser();
 }
 
-// function loadPlanets() {
-//     authHeaderValue = "Basic " + btoa(username + ":" + password); //btoa base 64 encoding
-//
-//     var xmlHttp = new XMLHttpRequest();
-//     xmlHttp.open("GET", "/profile.html");
-//     xmlHttp.setRequestHeader("Authorization", authHeaderValue);
-//
-//     xmlHttp.onreadystatechange = function () {
-//         if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-//
-//         }
-//     }
-//     xmlHttp.send();
-// }
+function checkUser() {
+    authHeaderValue = "Basic " + btoa(username + ":" + password); //btoa base 64 encoding
+
+    var user = {
+        "username": username,
+        "password": password
+    }
+
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open("POST", "http://localhost:8081/user/login", true);
+    xmlHttp.setRequestHeader("Authorization", authHeaderValue);
+    xmlHttp.setRequestHeader("Content-Type", "application/json");
+    xmlHttp.onreadystatechange = function () {
+        if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+            foundUser = JSON.parse(this.responseText)
+            displayProfile()
+        } else if (this.readyState === XMLHttpRequest.DONE && this.status === 401) {
+            alert(this.status)
+        }
+    }
+    xmlHttp.send(JSON.stringify(user));
+}
+
+function displayProfile() {
+    var profileInfo = document.getElementById("profileInfo");
+    profileInfo.innerHTML = foundUser.username;
+
+    var profileHTML = "";
+    profileInfo.innerHTML += profileHTML;
+}
 
