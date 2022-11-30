@@ -9,17 +9,18 @@
 </head>
 <body>
 
-<div STYLE="font-size:18.0pt"  id="homepageHref"><a href="index.html" >Homepage</a></div> </br> </br> <hr/>
+<div STYLE="font-size:18.0pt"  id="homepageHref"><a href="index.html" >Homepage</a></div>
+</br> </br> <hr/>
 <h1>Movie Database Page!!!</h1>
 
 <div>
     <ul id="movieListHTML"></ul>
 </div>
 <div id="buttonLocation">
-    <button onclick="recommend;">Like</button>
-    <input type="checkbox" id="recommendCheckbox">
-    <button onclick="favorite;">Favorite</button>
-    <input type="checkbox" id="favoriteCheckbox">
+    <textfield id="likes"></textfield>
+    <br/>
+    <button onclick="recommend();">Like</button>
+    <button onclick="favorite();">Favorite</button>
 </div>
 <div id="hrefLinks">
     <a href="login.html" > Login </a><br/>
@@ -35,8 +36,8 @@
     }
     #movieDetails {
         position: absolute;
-        top: 15%;
-        left: 15%;
+        top: 155px;
+        left: 250px;
     }
     #buttonLocation {
         position: relative;
