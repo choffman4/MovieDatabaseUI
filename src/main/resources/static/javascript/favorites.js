@@ -20,7 +20,7 @@ function getCookie(cname) {
     return "";
 }
 
-//onload, grab cookies, get favorites for signed in user
+//onload, grab cookies, get favorites for signed-in user
 window.onload = function() {
     username = getCookie("username");
     password = getCookie("password");

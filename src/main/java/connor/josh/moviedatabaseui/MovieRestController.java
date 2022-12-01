@@ -52,21 +52,9 @@ public class MovieRestController {
         mb.removeMovieRecommendation(username, imdbid);
     }
 
-    @RequestMapping(path = "/recommends/{imdib}", method = RequestMethod.DELETE)
+    @RequestMapping(path = "/recommends/{imdbid}", method = RequestMethod.GET)
     public int getAllMovieRecommendations(@PathVariable String imdbid) throws IOException {
         return mb.getAllMovieRecommends(imdbid);
-    }
-
-    //MOVIES
-    ////////////////////////////////////////////////////////////////////////////////
-    @RequestMapping(path = "/", method = RequestMethod.GET)
-    public List<Movie> findAllMovies() throws IOException {
-        return mb.findAllMovies();
-    }
-
-    @RequestMapping(path = "/{imdbid}", method = RequestMethod.GET)
-    public Movie findMovie(@PathVariable String imdbid) throws IOException {
-        return mb.findMovie(imdbid);
     }
 
     //FAVORITES

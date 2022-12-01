@@ -1,7 +1,7 @@
 var authHeaderValue = null;
 var username = null;
 var password = null;
-var imdbid = sessionStorage.getItem("imdbID").toString()
+var imdbid = null;
 
 var recommends = 0;
 
@@ -24,8 +24,11 @@ function fetchMovie(imdbID) {
                 + res.Metascore + "," + "</br>" + "imdbRating: " + res.imdbRating  +"</p></div>"
             movieList.innerHTML += movieHTML;
 
-            var buttonHTML = `<div id="buttonLocation">` + `<button onClick="` + recommendMovie(imdbid) + `">Like</button>` +
-                `<button onClick="` + addToFavorites(imdbid) + `">Favorite</button></div>`;
+            var buttonHTML = `<div id="buttonLocation">` +
+                `<button type="button" value="` + imdbid + `" onclick="addToFavorites(this.value);">Favorite</button>` +
+                `<button type="button" value="` + imdbid +`" onclick="recommendMovie(this.value);">Like</button>` +
+                `<button type="button" value="` + imdbid +`" onclick="unrecommendMovie(this.value);">unLike</button>` +
+                `</div>`;
 
             movieList.innerHTML += buttonHTML;
 
@@ -35,15 +38,14 @@ function fetchMovie(imdbID) {
 
 //movie recommends incomplete
 function getMovieRecommends(imdbid) {
-
+    var movieLikes = document.getElementById("totalLikes");
     var xmlHttp = new XMLHttpRequest();
-    xmlHttp.open("GET", "http://localhost:8081/movies/recommends/" + imdbid);
+    xmlHttp.open("GET", "http://localhost:8081/movies/recommends/" + imdbid, true);
     xmlHttp.onreadystatechange = function () {
         if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-            alert(this.responseText)
-            // recommends = JSON.parse(this.responseText)
-            // var likes = document.getElementById("likes");
-            // likes.innerHTML = "Recommendations: " + recommends.recommends;
+            recommends = JSON.parse(this.responseText)
+            var likes = document.getElementById("likes");
+            likes.innerHTML = "Recommendations: " + recommends;
         }
     }
     xmlHttp.send();
@@ -64,23 +66,37 @@ function addToFavorites(imdbid) {
 }
 
 function recommendMovie(imdbid) {
-    // authHeaderValue = "Basic " + btoa(username + ":" + password); //btoa base 64 encoding
-    // var xmlHttp = new XMLHttpRequest();
-    // xmlHttp.open("POST", "http://localhost:8081/movies/recommends/add/" + username + "/" + imdbid);
-    // xmlHttp.setRequestHeader("Authorization", authHeaderValue);
-    // xmlHttp.onreadystatechange = function () {
-    //     if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-    //
-    //     }
-    // }
-    // xmlHttp.send();
+    authHeaderValue = "Basic " + btoa(username + ":" + password); //btoa base 64 encoding
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open("POST", "http://localhost:8081/movies/recommends/add/" + username + "/" + imdbid);
+    xmlHttp.setRequestHeader("Authorization", authHeaderValue);
+    xmlHttp.onreadystatechange = function () {
+        if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+            location.reload(true);
+        }
+    }
+    xmlHttp.send();
+}
+
+function unrecommendMovie(imdbid) {
+    authHeaderValue = "Basic " + btoa(username + ":" + password); //btoa base 64 encoding
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open("DELETE", "http://localhost:8081/movies/recommends/remove/" + username + "/" + imdbid);
+    xmlHttp.setRequestHeader("Authorization", authHeaderValue);
+    xmlHttp.onreadystatechange = function () {
+        if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+            location.reload(true);
+        }
+    }
+    xmlHttp.send();
 }
 
 window.onload = function() {
-    fetchMovie(sessionStorage.getItem("imdbID"));
-    getMovieRecommends(sessionStorage.getItem("imdbID"));
+    imdbid = sessionStorage.getItem("imdbID");
     username = getCookie("username");
     password = getCookie("password");
+    fetchMovie(imdbid);
+    getMovieRecommends(imdbid);
 }
 
 

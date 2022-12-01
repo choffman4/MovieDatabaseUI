@@ -100,7 +100,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/profile.html").permitAll()
                 .antMatchers("/javascript/favorites.js").permitAll()
                 .antMatchers("/javascript/profile.js").permitAll()
-                .antMatchers("/movies/recommends").permitAll() // allows your homepage to be accessed
+                .antMatchers("/javascript/signout.js").permitAll()
+                .antMatchers("/movies/recommends/{imdib}").permitAll()
 
 
                 .antMatchers("/user/**").hasRole("USER") // allows your homepage to be accessed

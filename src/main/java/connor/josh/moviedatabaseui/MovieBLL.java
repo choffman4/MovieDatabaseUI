@@ -50,13 +50,12 @@ public class MovieBLL {
 
     public int getAllMovieRecommends(String imdbid) throws IOException {
         int recommends = 0;
-        String sql = "SELECT recommends from moviedb.userrecommends where imdbid=(?);";
+        String sql = "SELECT * from moviedb.userrecommends where imdbid=(?);";
 
         try {
             Connection con = DriverManager.getConnection(url, user, password);
             PreparedStatement pst = con.prepareStatement(sql);
             pst.setString(1, imdbid);
-            pst.executeUpdate();
             ResultSet rs = pst.executeQuery();
 
             while(rs.next()) {
