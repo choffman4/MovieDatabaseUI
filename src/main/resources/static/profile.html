@@ -7,12 +7,18 @@
 
 </head>
 <body>
-<div STYLE="font-size:18.0pt"  id="homepageHref"><a href="index.html" >Homepage</a></div>
-</br> </br> <hr/>
+<div STYLE="font-size:18.0pt"  id="homepageHref"><a href="index.html" > Josh & Con MovieDB </a></div>
+</br> <hr/>
 <h1>User Profile</h1>
 </br>
+<div id="hrefLinks">
+    <a href="login.html" > Login </a><br/>
+    <a href="sign_up.html" > Sign Up </a>
+</div>
 <div id="accountLinks">
-    <a href="favorites.html" > Favorites </a>
+    <a href="profile.html" > Profile </a><br/>
+    <a href="favorites.html"> Favorites </a><br/>
+    <button class="buttonToLink" type="button" onclick="signOut"> Sign Out</button>
 </div>
 <div id="changeUsername">
     <button onclick="changeUsername();">Change Username</button><br/>
@@ -49,7 +55,22 @@
         position: relative;
         top: 10px;
     }
-
+    .buttonToLink{
+        background: none;
+        border: none;
+        color: blue;
+        padding-left: 0;
+        font-size: 15px;
+    }
+    .buttonToLink:hover{
+        background: none;
+        text-decoration: underline;
+    }
+    a {text-decoration: none;}
+    a:hover {text-decoration: underline;}
 </style>
 </body>
+<footer id="foot">
+    Powered by ©The OMDb API
+</footer>
 </html>
