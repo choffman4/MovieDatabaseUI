@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign Up</title>
+    <script src="javascript/sign_up.js"></script>
+    <script src="javascript/signout.js"></script>
+</head>
+<body>
+<div id="signup">
+    <div STYLE="font-size:18.0pt"  id="homepageHref"><a href="index.html" >Homepage</a></div> </br> </br> <hr/>
+    <h4>Please enter your username</h4>
+    <label>Username</label>
+    <input type="text" id="username"/>
+    <br/>
+    <h4>Please enter your password</h4>
+    <label>Password</label>
+    <input type="password" id="password"/>
+    <br/>
+
+    <button onclick="newUser();">Create Account</button>
+    
+</div>
+<div id="hrefLinks">
+    <a href="login.html" > Login </a><br/>
+    <a href="profile.html" > Profile </a><br/>
+    <a href="favorites.html" > Favorites </a>
+</div>
+
+<style>
+    #hrefLinks {
+        position: absolute;
+        top: 7px;
+        right: 20px;
+    }
+    #homepageHref {
+        position: relative;
+        top: 10px;
+    }
+</style>
+</body>
+</html>

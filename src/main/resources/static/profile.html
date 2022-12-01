@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile Page</title>
+    <script src="javascript/profile.js"></script>
+    <script src="javascript/signout.js"></script>
+</head>
+<body>
+<div STYLE="font-size:18.0pt"  id="homepageHref"><a href="index.html" >Homepage</a></div>
+</br> </br> <hr/>
+<h1>User Profile</h1>
+</br>
+<div id="accountLinks">
+    <a href="favorites.html" > Favorites </a>
+</div>
+<div id="changeUsername">
+    <button onclick="changeUsername();">Change Username</button><br/>
+    <input type="text" id="currentUsername"><br/>
+    <input type="text" id="newUsername">
+</div>
+<div id="changePassword">
+    <button onclick="changePassword();">Change Password</button><br/>
+    <input type="text" id="currentPassword"><br/>
+    <input type="text" id="newPassword">
+</div>
+<style>
+    #changeUsername{
+        position:relative;
+        left: 30px
+    }
+    #changePassword{
+        position:relative;
+        top: -64px;
+        left: 200px
+    }
+    #hrefLinks {
+        position: absolute;
+        top: 7px;
+        right: 20px;
+    }
+    #accountLinks {
+        position: absolute;
+        top: 7px;
+        right: 20px;
+    }
+    #homepageHref {
+        position: relative;
+        top: 10px;
+    }
+
+</style>
+</body>
+</html>

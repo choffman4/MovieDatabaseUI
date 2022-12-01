@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Login</title>
+    <script src="javascript/login.js"></script>
+    <script src="javascript/signout.js"></script>
+</head>
+<body>
+
+<div STYLE="font-size:18.0pt"  id="homepageHref"><a href="index.html" >Homepage</a></div> </br> </br> <hr/>
+
+
+<div id="frmLogin">
+
+    <h3>Login</h3>
+
+    <label>Username</label>
+    <input type="text" id="txtUsername"/>
+    <br/>
+
+    <label>Password</label>
+    <input type="password" id="txtPassword"/>
+
+    <button onclick="login();">Login</button>
+
+</div>
+<div id="accountLinks">
+    <a href="profile.html" > Profile </a><br/>
+    <a href="favorites.html" > Favorites </a>
+</div>
+<div id="lblMsg"></div>
+<br/>
+
+
+<style>
+    #content {
+        position: relative;
+    }
+    #content {
+        position: absolute;
+        top: 7px;
+        right: 20px;
+    }
+    #accountLinks {
+        position: absolute;
+        top: 7px;
+        right: 20px;
+    }
+    #homepageHref {
+        position: relative;
+        top: 10px;
+    }
+</style>
+
+</body>
+</html>
