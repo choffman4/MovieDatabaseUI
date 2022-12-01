@@ -2,6 +2,7 @@ var authHeaderValue = null;
 var username = null;
 var password = null;
 
+//login user, make cookies,
 function login() {
     username = document.getElementById('txtUsername').value;
     password = document.getElementById('txtPassword').value;
@@ -21,7 +22,7 @@ function login() {
             console.log("LOGIN SUCCESS");
             makeCookie();
             document.getElementById("lblMsg").innerHTML = "Welcome, " + username;
-            window.location.href = 'profile.html';
+            window.location.href = 'index.html';
             // showLoginForm(false);
         } else if (this.readyState === XMLHttpRequest.DONE && this.status === 401) {
             document.getElementById("lblMsg").innerHTML = "INVALID USERNAME/PASSWORD";
@@ -31,7 +32,7 @@ function login() {
     xmlHttp.send(JSON.stringify(user));
 }
 
-
+//show log in form if signed in or out.
 function showLoginForm(bTF) {
     if (bTF === true) {
         document.getElementById('accountLinks').style.visibility = "block";
@@ -42,6 +43,7 @@ function showLoginForm(bTF) {
     }
 }
 
+//send cookies to each page
 function makeCookie() {
     document.cookie = "username=" + username + "; path=/favorites.js";
     document.cookie = "password=" + password + "; path=/favorites.js";
@@ -79,6 +81,7 @@ window.onload = function() {
     }
 }
 
+//retrieve cookies
 function getCookie(cname) {
     let name = cname + "=";
     let decodedCookie = decodeURIComponent(document.cookie);

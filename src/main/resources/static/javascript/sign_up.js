@@ -28,8 +28,7 @@ function newUser() {
     var password = document.getElementById("password").value;
     var user = {
         "username": username,
-        "password": password,
-        "role": "USER"
+        "password": password
     }
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.open("POST", "http://localhost:8081/user/newUser");
@@ -40,7 +39,36 @@ function newUser() {
             console.log("success in creating user");
             document.getElementById("username").value = "";
             document.getElementById("password").value = "";
+            makeCookie();
+            window.location.href = 'index.html';
         }
     }
     xmlHttp.send(JSON.stringify(user));
+}
+
+function makeCookie() {
+    document.cookie = "username=" + username + "; path=/favorites.js";
+    document.cookie = "password=" + password + "; path=/favorites.js";
+    document.cookie = "username=" + username + "; path=/movie.js";
+    document.cookie = "password=" + password + "; path=/movie.js";
+    document.cookie = "username=" + username + "; path=/index.js";
+    document.cookie = "password=" + password + "; path=/index.js";
+    document.cookie = "username=" + username + "; path=/favorites.js";
+    document.cookie = "password=" + password + "; path=/favorites.js";
+    document.cookie = "username=" + username + "; path=/sign_up.js";
+    document.cookie = "password=" + password + "; path=/sign_up.js";
+    document.cookie = "username=" + username + "; path=/profile.js";
+    document.cookie = "password=" + password + "; path=/profile.js";
+    document.cookie = "username=" + username + "; path=/favorites.html";
+    document.cookie = "password=" + password + "; path=/favorites.html";
+    document.cookie = "username=" + username + "; path=/movie.html";
+    document.cookie = "password=" + password + "; path=/movie.html";
+    document.cookie = "username=" + username + "; path=/index.html";
+    document.cookie = "password=" + password + "; path=/index.html";
+    document.cookie = "username=" + username + "; path=/favorites.html";
+    document.cookie = "password=" + password + "; path=/favorites.html";
+    document.cookie = "username=" + username + "; path=/sign_up.html";
+    document.cookie = "password=" + password + "; path=/sign_up.html";
+    document.cookie = "username=" + username + "; path=/profile.html";
+    document.cookie = "password=" + password + "; path=/profile.html";
 }

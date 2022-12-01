@@ -18,20 +18,35 @@ function getCookie(cname) {
     return "";
 }
 
+//onload get cookies if user is already signed in
+//if user had previous search grab that search and fetch movies.
 window.onload = function() {
     username = getCookie("username");
     password = getCookie("password");
+    showProfileTags(false);
     if(sessionStorage.getItem("searchTerm") && sessionStorage.getItem("searchTerm") != null) {
         fetchPreviousMovies(1, sessionStorage.getItem("searchTerm"))
     }
 }
 
+//fetch movie page with more details
 function fetchMovie(imdbID) {
     sessionStorage.setItem("imdbID", imdbID)
     window.location.href = 'movie.html';
 }
 
+//show signed in/signed out tags
+function showProfileTags(bTF) {
+    if (bTF === true) {
+        document.getElementById('accountLinks').style.visibility = "visible";
+        document.getElementById('hrefLinks').style.visibility = "hidden";
+    } else {
+        document.getElementById('accountLinks').style.visibility = "hidden";
+        document.getElementById('hrefLinks').style.visibility = "visible";
+    }
+}
 
+//fetch movies with original search and page number
 function fetchMovies(pageNumber) {
     currentPage = parseInt(pageNumber);
     var movieList = document.getElementById("movieListHTML");
@@ -69,6 +84,7 @@ function fetchMovies(pageNumber) {
         })
 }
 
+//fetch previous movies by page number and search term.
 function fetchPreviousMovies(pageNumber, searchTerm) {
     currentPage = parseInt(pageNumber);
     var movieList = document.getElementById("movieListHTML");

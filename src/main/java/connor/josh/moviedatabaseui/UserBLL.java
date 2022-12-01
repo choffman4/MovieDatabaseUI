@@ -1,5 +1,9 @@
 package connor.josh.moviedatabaseui;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -10,6 +14,14 @@ public class UserBLL {
     static String url = "jdbc:mysql://localhost:3306/moviedb?allowPublicKeyRetrieval=true&useSSL=false";
     static String user = "root";
     static String pass = "test";
+
+    @Autowired
+    public InMemoryUserDetailsManager inMemoryUserDetailsManager;
+
+    @Autowired
+    public PasswordEncoder passwordEncoder;
+
+
 
     public void newUser(User newUser) {
         String sql = "INSERT INTO moviedb.useraccount (username, password) Values(?, ?)";
@@ -22,9 +34,14 @@ public class UserBLL {
             pst.setString(2, newUser.getPassword());
             pst.executeUpdate();
 
+            inMemoryUserDetailsManager.createUser(org.springframework.security.core.userdetails.User.withUsername(newUser.getUsername())
+                    .password(passwordEncoder.encode(newUser.getPassword()))
+                    .roles("USER").build());
+
         } catch (Exception e) {
             e.printStackTrace();
         }
+
     }
 
     public User accountLogin(String username, String password) {

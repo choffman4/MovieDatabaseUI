@@ -14,112 +14,20 @@ public class MovieBLL {
     static String url = "jdbc:mysql://localhost:3306/" + "moviedb?allowPublicKeyRetrieval=true&useSSL=false";
     static String user = "root";
     static String password = "test";
-
-    public static ArrayList<Movie> allMovies = new ArrayList<>();
     public static ArrayList<Review> allReviews = new ArrayList<>();
 
-    //MOVIE CRUD
-    public void addMovie(String imdbID) {
-
-        String sql =    "BEGIN" +
-                            "IF NOT EXISTS (SELECT * FROM moviedb.movie " +
-                                "WHERE (imdbid)=(?)" +
-                            "BEGIN" +
-                            "INSERT INTO moviedb.movie (imdbid, recommends) " +
-                                "Values(?, ?)" +
-                            "END" +
-                        "END";
-
-        try {
-            Connection con = DriverManager.getConnection(url, user, password);
-            PreparedStatement pst = con.prepareStatement(sql);
-
-            pst.setString(1, imdbID);
-            pst.setString(2, imdbID);
-            pst.setInt(3, 0);
-            pst.executeUpdate();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public List<Movie> findAllMovies() throws IOException {
-        String sql = "Select * from moviedb.movie";
-        allMovies.clear();
-
-        try {
-            Connection con = DriverManager.getConnection(url, user, password);
-            PreparedStatement pst = con.prepareStatement(sql);
-            ResultSet rs = pst.executeQuery();
-
-            while(rs.next()) {
-                String imdbID = rs.getString("imdbid");
-                int recommends = rs.getInt("recommends");
-                Movie movie = new Movie(imdbID, recommends);
-                allMovies.add(movie);
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return allMovies;
-    }
-
-    public Movie findMovie(String imdbID) throws IOException {
-        findAllMovies();
-        Movie foundMovie = new Movie();
-        for (Movie movie: allMovies) {
-            if(movie.getImdbID() == imdbID) {
-                foundMovie = movie;
-            }
-
-        }
-        return foundMovie;
-    }
-
-    //MOVIE REVIEW CRUD
-    ////////////////////////////////////////////////////////////////////
-    public void updateMovieRecommends(Movie movie) throws IOException {
-
-        String sql = "UPDATE moviedb.movie where imdbid=(?) set recommends=(?);";
-
-        try {
-            Connection con = DriverManager.getConnection(url, user, password);
-            PreparedStatement pst = con.prepareStatement(sql);
-            pst.setString(1, movie.getImdbID());
-            pst.setInt(2, movie.getRecommends());
-            pst.executeUpdate();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
+    //MOVIE RECOMMENDS
+    //////////////////////////////////////////////////////////////////////////////
     public void addMovieRecommendation(String username, String imdbID) throws IOException {
-        Movie movie = findMovie(imdbID);
-
-        String sql =    "BEGIN" +
-                            "IF NOT EXISTS (SELECT * FROM moviedb.userrecommends " +
-                                "WHERE (imdbid=(?) and username=(?))" +
-                            "BEGIN" +
-                            "INSERT INTO moviedb.recommends (imdbid, recommends) " +
-                                "Values(?, ?)" +
-                            "END" +
-                        "END";
-
+        String sql = "INSERT INTO moviedb.userrecommends (id ,username, imdbid) Values(?, ?, ?)";
 
         try {
             Connection con = DriverManager.getConnection(url, user, password);
             PreparedStatement pst = con.prepareStatement(sql);
-            pst.setString(1, username);
-            pst.setString(2, imdbID);
-            pst.setString(3, username);
-            pst.setString(4, imdbID);
+            pst.setString(1, (username + ":" + imdbID));
+            pst.setString(2, username);
+            pst.setString(3, imdbID);
             pst.executeUpdate();
-
-            movie.setRecommends(movie.getRecommends() + 1);
-            updateMovieRecommends(movie);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -127,23 +35,38 @@ public class MovieBLL {
     }
 
     public void removeMovieRecommendation(String username, String imdbID) throws IOException {
-        String sql = "DELETE FROM moviedb.userrecommends WHERE (username)=(?) and (imdbid)=(?)";
-
-        Movie movie = findMovie(imdbID);
+        String sql = "DELETE FROM moviedb.userrecommends WHERE id=(?)";
 
         try {
             Connection con = DriverManager.getConnection(url, user, password);
             PreparedStatement pst = con.prepareStatement(sql);
-            pst.setString(1, username);
-            pst.setString(2, imdbID);
+            pst.setString(1, (username + ":" + imdbID));
             pst.executeUpdate();
-
-            movie.setRecommends(movie.getRecommends() - 1);
-            updateMovieRecommends(movie);
 
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public int getAllMovieRecommends(String imdbid) throws IOException {
+        int recommends = 0;
+        String sql = "SELECT recommends from moviedb.userrecommends where imdbid=(?);";
+
+        try {
+            Connection con = DriverManager.getConnection(url, user, password);
+            PreparedStatement pst = con.prepareStatement(sql);
+            pst.setString(1, imdbid);
+            pst.executeUpdate();
+            ResultSet rs = pst.executeQuery();
+
+            while(rs.next()) {
+                recommends++;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return recommends;
     }
 
     //MOVIE REVIEW CRUD
@@ -238,6 +161,58 @@ public class MovieBLL {
 
         }
         return movieReviews;
+    }
+
+    //MOVIE REVIEW CRUD
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    public void addMovieToFavorites(String username, String imdbid) {
+        String sql = "INSERT INTO moviedb.userfavorite (id ,username, imdbid) Values(?, ?, ?)";
+
+        try {
+            Connection con = DriverManager.getConnection(url, user, password);
+            PreparedStatement pst = con.prepareStatement(sql);
+            pst.setString(1, (username + ":" + imdbid));
+            pst.setString(2, username);
+            pst.setString(3, imdbid);
+            pst.executeUpdate();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteMovieFromFavorites(String username, String imdbid) {
+        String sql = "DELETE FROM moviedb.userfavorite WHERE id=(?)";
+
+        try {
+            Connection con = DriverManager.getConnection(url, user, password);
+            PreparedStatement pst = con.prepareStatement(sql);
+            pst.setString(1, (username + ":" + imdbid));
+            pst.executeUpdate();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public ArrayList<String> getAllFavorites(String username) throws IOException {
+        String sql = "Select * from moviedb.userfavorite where username=(?)";
+        ArrayList<String> favorites = new ArrayList<>();
+        try {
+            Connection con = DriverManager.getConnection(url, user, password);
+            PreparedStatement pst = con.prepareStatement(sql);
+            pst.setString(1, username);
+            ResultSet rs = pst.executeQuery();
+
+            while(rs.next()) {
+                String imdbID = rs.getString("imdbid");
+                favorites.add(imdbID);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return favorites;
     }
 
 }

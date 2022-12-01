@@ -25,6 +25,7 @@ window.onload = function() {
     checkUser();
 }
 
+// check if user is signed in to display profile data
 function checkUser() {
     authHeaderValue = "Basic " + btoa(username + ":" + password); //btoa base 64 encoding
 
