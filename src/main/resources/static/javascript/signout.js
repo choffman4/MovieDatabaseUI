@@ -1,4 +1,5 @@
 function signOut()  {
+
     document.cookie = "username=" + username + "; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/favorites.js";
     document.cookie = "password=" + password + "; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/favorites.js";
     document.cookie = "username=" + username + "; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/movie.js";
@@ -23,4 +24,6 @@ function signOut()  {
     document.cookie = "password=" + password + "; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/sign_up.html";
     document.cookie = "username=" + username + "; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/profile.html";
     document.cookie = "password=" + password + "; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/profile.html";
+    sessionStorage.removeItem('user');
+    location.reload(true);
 }

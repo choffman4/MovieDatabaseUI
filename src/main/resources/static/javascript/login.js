@@ -22,8 +22,8 @@ function login() {
             console.log("LOGIN SUCCESS");
             makeCookie();
             document.getElementById("lblMsg").innerHTML = "Welcome, " + username;
+            sessionStorage.setItem("user", "0")
             window.location.href = 'index.html';
-            // showLoginForm(false);
         } else if (this.readyState === XMLHttpRequest.DONE && this.status === 401) {
             document.getElementById("lblMsg").innerHTML = "INVALID USERNAME/PASSWORD";
             showLoginForm(true);
@@ -73,6 +73,9 @@ function makeCookie() {
 
 window.onload = function() {
     console.log("page loading...");
+    username = getCookie("username");
+    password = getCookie("password");
+    showProfileTags();
     if ((getCookie("username") != null) && (getCookie("password") != null)) {
         showLoginForm(true);
     } else {
@@ -96,4 +99,18 @@ function getCookie(cname) {
         }
     }
     return "";
+}
+
+//show signed in/signed out tags
+function showProfileTags() {
+    if (sessionStorage.getItem("user") === null) {
+        document.getElementById('accountLinks').style.display = "none";
+        document.getElementById('hrefLinks').style.display = "block";
+        document.getElementById("profileName").style.display = "none";
+    } else {
+        document.getElementById('accountLinks').style.display = "block";
+        document.getElementById("profileName").style.display = "block";
+        document.getElementById('hrefLinks').style.display = "none";
+        document.getElementById("profileName").innerHTML = username;
+    }
 }

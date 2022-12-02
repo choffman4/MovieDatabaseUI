@@ -11,9 +11,9 @@ import java.util.List;
 
 public class MovieBLL {
 
-    static String url = "jdbc:mysql://localhost:3306/" + "moviedb?allowPublicKeyRetrieval=true&useSSL=false";
-    static String user = "root";
-    static String password = "test";
+    static String url = "jdbc:mysql://moviedb.ciabqvuwkkzn.us-west-2.rds.amazonaws.com:3306/moviedb?allowPublicKeyRetrieval=true&useSSL=false";
+    static String user = "admin";
+    static String password = "password";
     public static ArrayList<Review> allReviews = new ArrayList<>();
 
     //MOVIE RECOMMENDS

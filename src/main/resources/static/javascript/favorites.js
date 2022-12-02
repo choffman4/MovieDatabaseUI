@@ -24,6 +24,7 @@ function getCookie(cname) {
 window.onload = function() {
     username = getCookie("username");
     password = getCookie("password");
+    showProfileTags();
     var movieList = document.getElementById("user_favorites");
     movieList.innerHTML = "";
     getFavorites()
@@ -86,4 +87,18 @@ function deleteFavorite(imdbid) {
 function fetchMovie(imdbID) {
     sessionStorage.setItem("imdbID", imdbID)
     window.location.href = 'movie.html';
+}
+
+//show signed in/signed out tags
+function showProfileTags() {
+    if (sessionStorage.getItem("user") === null) {
+        document.getElementById('accountLinks').style.display = "none";
+        document.getElementById('hrefLinks').style.display = "block";
+        document.getElementById("profileName").style.display = "none";
+    } else {
+        document.getElementById('accountLinks').style.display = "block";
+        document.getElementById("profileName").style.display = "block";
+        document.getElementById('hrefLinks').style.display = "none";
+        document.getElementById("profileName").innerHTML = username;
+    }
 }
