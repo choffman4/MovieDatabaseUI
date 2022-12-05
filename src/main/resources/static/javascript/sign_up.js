@@ -25,14 +25,15 @@ window.onload = function() {
 }
 
 function newUser() {
-    var user = document.getElementById("username").value;
-    var pass = document.getElementById("password").value;
+    username = document.getElementById("username").value;
+    password = document.getElementById("password").value;
     var newUser = {
-        "username": user,
-        "password": pass
+        "username": username,
+        "password": password
     }
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.open("POST", "http://Moviedbjava-env.eba-pppkpw72.us-west-2.elasticbeanstalk.com:5000/user/newUser");
+    xmlHttp.setRequestHeader("Authorization", authHeaderValue);
     xmlHttp.setRequestHeader("Content-Type", "application/json");
     xmlHttp.onreadystatechange = function () {
         console.log("ready state: ", this.status);
@@ -45,6 +46,7 @@ function newUser() {
             password = getCookie("password")
             document.getElementById("profileName").innerHTML = username;
             sessionStorage.setItem("user", "0")
+            location.reload();
             window.location.href = 'index.html';
         }
     }
