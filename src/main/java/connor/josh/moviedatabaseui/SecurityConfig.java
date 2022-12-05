@@ -39,6 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(inMemoryUserDetailsManager());
     }
 
+    //loop through database of users and add permissions
     @Bean
     public InMemoryUserDetailsManager inMemoryUserDetailsManager() {
 
@@ -57,7 +58,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             while(rs.next()) {
                 String username = rs.getString("username");
                 String password = rs.getString("password");
-                String role = rs.getString("role");
+                String role = "USER";
 
                 userDetailsList.add(org.springframework.security.core.userdetails.User.withUsername(username)
                         .password(passwordEncoder().encode(password))
@@ -99,6 +100,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/profile.html").permitAll()
                 .antMatchers("/javascript/favorites.js").permitAll()
                 .antMatchers("/javascript/profile.js").permitAll()
+                .antMatchers("/javascript/signout.js").permitAll()
+                .antMatchers("/movies/recommends/{imdib}").permitAll()
 
 
                 .antMatchers("/user/**").hasRole("USER") // allows your homepage to be accessed

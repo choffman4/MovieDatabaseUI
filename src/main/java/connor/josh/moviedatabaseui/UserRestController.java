@@ -1,5 +1,8 @@
 package connor.josh.moviedatabaseui;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -16,6 +19,8 @@ public class UserRestController {
     @ResponseBody
     public void createUser(@RequestBody User user) throws IOException {
         ub.newUser(user);
+
+
     }
 
     @RequestMapping(path = "/updateUsername/{currentUsername}/{newUsername}/{password}", method = RequestMethod.PUT)

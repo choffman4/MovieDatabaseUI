@@ -1,7 +1,6 @@
 package connor.josh.moviedatabaseui;
 
 import org.springframework.web.bind.annotation.*;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +18,6 @@ public class MovieRestController {
     public void addReview(@RequestBody Review review) throws IOException {
         mb.addMovieReview(review);
     }
-
 
     @RequestMapping(path = "/updateReview", method = RequestMethod.PUT)
     @ResponseBody
@@ -54,17 +52,25 @@ public class MovieRestController {
         mb.removeMovieRecommendation(username, imdbid);
     }
 
+    @RequestMapping(path = "/recommends/{imdbid}", method = RequestMethod.GET)
+    public int getAllMovieRecommendations(@PathVariable String imdbid) throws IOException {
+        return mb.getAllMovieRecommends(imdbid);
+    }
 
-    //MOVIES
+    //FAVORITES
     ////////////////////////////////////////////////////////////////////////////////
-    @RequestMapping(path = "/", method = RequestMethod.GET)
-    public List<Movie> findAllMovies() throws IOException {
-        return mb.findAllMovies();
+    @RequestMapping(path = "/favorites/add/{username}/{imdbid}", method = RequestMethod.POST)
+    public void addMovieToFavorites(@PathVariable String imdbid, @PathVariable String username) throws IOException {
+        mb.addMovieToFavorites(username, imdbid);
     }
 
-    @RequestMapping(path = "/{imdbid}", method = RequestMethod.GET)
-    public Movie findMovie(@PathVariable String imdbid) throws IOException {
-        return mb.findMovie(imdbid);
+    @RequestMapping(path = "/favorites/delete/{username}/{imdbid}", method = RequestMethod.DELETE)
+    public void deleteMovieFromFavorites(@PathVariable String imdbid, @PathVariable String username) throws IOException {
+        mb.deleteMovieFromFavorites(username, imdbid);
     }
 
+    @RequestMapping(path = "/favorites/{username}", method = RequestMethod.GET)
+    public ArrayList<String> getAllFavorites(@PathVariable String username) throws IOException {
+        return mb.getAllFavorites(username);
+    }
 }
