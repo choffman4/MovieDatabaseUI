@@ -46,7 +46,7 @@ function newUser() {
             password = getCookie("password")
             document.getElementById("profileName").innerHTML = username;
             sessionStorage.setItem("user", "0")
-            location.reload();
+            // location.reload();
             window.location.href = 'index.html';
         }
     }
