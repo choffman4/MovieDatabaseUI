@@ -25,5 +25,5 @@ function signOut()  {
     document.cookie = "username=" + username + "; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/profile.html";
     document.cookie = "password=" + password + "; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/profile.html";
     sessionStorage.removeItem('user');
-    location.reload(true);
+    window.location.href = 'sign_up.html';
 }
