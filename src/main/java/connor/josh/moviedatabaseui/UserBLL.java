@@ -3,6 +3,7 @@ package connor.josh.moviedatabaseui;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -11,7 +12,8 @@ import java.sql.ResultSet;
 
 public class UserBLL {
 
-    static String url = "jdbc:mysql://moviedb.ciabqvuwkkzn.us-west-2.rds.amazonaws.com:3306/moviedb?allowPublicKeyRetrieval=true&useSSL=false";
+    static String url = "jdbc:mysql://awseb-e-ctpmnqybmw-stack-awsebrdsdatabase-gmem0u0zwemc.ciabqvuwkkzn.us-west-2.rds.amazonaws.com:3306/" +
+            "moviedb";
     static String user = "admin";
     static String pass = "password";
 
@@ -40,6 +42,7 @@ public class UserBLL {
 
         } catch (Exception e) {
             e.printStackTrace();
+            System.err.println(e);
         }
 
     }
@@ -61,6 +64,7 @@ public class UserBLL {
             }
         } catch (Exception e) {
             e.printStackTrace();
+            System.err.println(e);
         }
         return foundUser;
     }

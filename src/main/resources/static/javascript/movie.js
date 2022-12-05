@@ -40,7 +40,7 @@ function fetchMovie(imdbID) {
 function getMovieRecommends(imdbid) {
     var movieLikes = document.getElementById("totalLikes");
     var xmlHttp = new XMLHttpRequest();
-    xmlHttp.open("GET", "http://localhost:8081/movies/recommends/" + imdbid, true);
+    xmlHttp.open("GET", "http://Moviedbjava-env.eba-pppkpw72.us-west-2.elasticbeanstalk.com:5000/movies/recommends/" + imdbid, true);
     xmlHttp.onreadystatechange = function () {
         if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
             recommends = JSON.parse(this.responseText)
@@ -55,7 +55,7 @@ function getMovieRecommends(imdbid) {
 function addToFavorites(imdbid) {
     authHeaderValue = "Basic " + btoa(username + ":" + password); //btoa base 64 encoding
     var xmlHttp = new XMLHttpRequest();
-    xmlHttp.open("POST", "http://localhost:8081/movies/favorites/add/" + username + "/" + imdbid);
+    xmlHttp.open("POST", "http://Moviedbjava-env.eba-pppkpw72.us-west-2.elasticbeanstalk.com:5000/movies/favorites/add/" + username + "/" + imdbid);
     xmlHttp.setRequestHeader("Authorization", authHeaderValue);
     xmlHttp.onreadystatechange = function () {
         if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
@@ -68,7 +68,7 @@ function addToFavorites(imdbid) {
 function recommendMovie(imdbid) {
     authHeaderValue = "Basic " + btoa(username + ":" + password); //btoa base 64 encoding
     var xmlHttp = new XMLHttpRequest();
-    xmlHttp.open("POST", "http://localhost:8081/movies/recommends/add/" + username + "/" + imdbid);
+    xmlHttp.open("POST", "http://Moviedbjava-env.eba-pppkpw72.us-west-2.elasticbeanstalk.com:5000/movies/recommends/add/" + username + "/" + imdbid);
     xmlHttp.setRequestHeader("Authorization", authHeaderValue);
     xmlHttp.onreadystatechange = function () {
         if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
@@ -81,7 +81,7 @@ function recommendMovie(imdbid) {
 function unrecommendMovie(imdbid) {
     authHeaderValue = "Basic " + btoa(username + ":" + password); //btoa base 64 encoding
     var xmlHttp = new XMLHttpRequest();
-    xmlHttp.open("DELETE", "http://localhost:8081/movies/recommends/remove/" + username + "/" + imdbid);
+    xmlHttp.open("DELETE", "http://Moviedbjava-env.eba-pppkpw72.us-west-2.elasticbeanstalk.com:5000/movies/recommends/remove/" + username + "/" + imdbid);
     xmlHttp.setRequestHeader("Authorization", authHeaderValue);
     xmlHttp.onreadystatechange = function () {
         if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {

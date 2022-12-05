@@ -34,7 +34,7 @@ window.onload = function() {
 function getFavorites() {
     authHeaderValue = "Basic " + btoa(username + ":" + password); //btoa base 64 encoding
     var xmlHttp = new XMLHttpRequest();
-    xmlHttp.open("GET", "http://localhost:8081/movies/favorites/" + username);
+    xmlHttp.open("GET", "http://Moviedbjava-env.eba-pppkpw72.us-west-2.elasticbeanstalk.com:5000/movies/favorites/" + username);
     xmlHttp.setRequestHeader("Authorization", authHeaderValue);
     xmlHttp.onreadystatechange = function () {
         if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
@@ -72,7 +72,7 @@ function fetchMovies(imdbID) {
 function deleteFavorite(imdbid) {
     authHeaderValue = "Basic " + btoa(username + ":" + password); //btoa base 64 encoding
     var xmlHttp = new XMLHttpRequest();
-    xmlHttp.open("DELETE", "http://localhost:8081/movies/favorites/delete/" + username + "/" + imdbid);
+    xmlHttp.open("DELETE", "http://Moviedbjava-env.eba-pppkpw72.us-west-2.elasticbeanstalk.com:5000/movies/favorites/delete/" + username + "/" + imdbid);
     xmlHttp.setRequestHeader("Authorization", authHeaderValue);
     xmlHttp.onreadystatechange = function () {
         if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {

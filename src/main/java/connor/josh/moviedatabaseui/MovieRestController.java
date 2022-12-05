@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/movies")
 public class MovieRestController {
 

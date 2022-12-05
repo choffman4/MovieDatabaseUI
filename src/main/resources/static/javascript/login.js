@@ -14,7 +14,7 @@ function login() {
     }
 
     var xmlHttp = new XMLHttpRequest();
-    xmlHttp.open("POST", "http://localhost:8081/user/login");
+    xmlHttp.open("POST", "http://Moviedbjava-env.eba-pppkpw72.us-west-2.elasticbeanstalk.com:5000/user/login");
     xmlHttp.setRequestHeader("Authorization", authHeaderValue);
     xmlHttp.setRequestHeader("Content-Type", "application/json");
     xmlHttp.onreadystatechange = function () {

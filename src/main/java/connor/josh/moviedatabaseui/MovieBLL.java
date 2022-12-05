@@ -1,5 +1,7 @@
 package connor.josh.moviedatabaseui;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
+
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,10 +10,10 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class MovieBLL {
 
-    static String url = "jdbc:mysql://moviedb.ciabqvuwkkzn.us-west-2.rds.amazonaws.com:3306/moviedb?allowPublicKeyRetrieval=true&useSSL=false";
+    static String url = "jdbc:mysql://awseb-e-ctpmnqybmw-stack-awsebrdsdatabase-gmem0u0zwemc.ciabqvuwkkzn.us-west-2.rds.amazonaws.com:3306/" +
+            "moviedb";
     static String user = "admin";
     static String password = "password";
     public static ArrayList<Review> allReviews = new ArrayList<>();

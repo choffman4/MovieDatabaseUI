@@ -13,6 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.AuthenticationEntryPoint;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -27,11 +28,13 @@ import java.util.List;
 
 @Configuration
 @EnableWebSecurity
+@CrossOrigin
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    static String url = "jdbc:mysql://localhost:3306/moviedb?allowPublicKeyRetrieval=true&useSSL=false";
-    static String user = "root";
-    static String pass = "test";
+    static String url = "jdbc:mysql://awseb-e-ctpmnqybmw-stack-awsebrdsdatabase-gmem0u0zwemc.ciabqvuwkkzn.us-west-2.rds.amazonaws.com:3306/" +
+            "moviedb";
+    static String user = "admin";
+    static String pass = "password";
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
