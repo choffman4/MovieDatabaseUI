@@ -42,6 +42,7 @@ function newUser() {
             document.getElementById("password").value = "";
             makeCookie();
             username = getCookie("username");
+            password = getCookie("password")
             document.getElementById("profileName").innerHTML = username;
             sessionStorage.setItem("user", "0")
             window.location.href = 'index.html';
