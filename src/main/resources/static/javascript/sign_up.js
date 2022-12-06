@@ -1,4 +1,3 @@
-var authHeaderValue = null;
 var username = null;
 var password = null;
 
@@ -33,7 +32,6 @@ function newUser() {
     }
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.open("POST", "http://Moviedbjava-env.eba-pppkpw72.us-west-2.elasticbeanstalk.com:5000/user/newUser");
-    xmlHttp.setRequestHeader("Authorization", authHeaderValue);
     xmlHttp.setRequestHeader("Content-Type", "application/json");
     xmlHttp.onreadystatechange = function () {
         console.log("ready state: ", this.status);
@@ -48,6 +46,8 @@ function newUser() {
             sessionStorage.setItem("user", "0")
             // location.reload();
             window.location.href = 'index.html';
+        } else {
+            document.getElementById("errorMessage").value = "User with username" + username + " already exists";
         }
     }
     xmlHttp.send(JSON.stringify(newUser));
@@ -81,7 +81,7 @@ function makeCookie() {
     document.cookie = "password=" + password + "; path=/profile.html";
 }
 
-//show signed in/signed out tags
+// show signed in/signed out tags
 function showProfileTags() {
     if (sessionStorage.getItem("user") === null) {
         document.getElementById('accountLinks').style.display = "none";
@@ -91,6 +91,8 @@ function showProfileTags() {
         document.getElementById('accountLinks').style.display = "block";
         document.getElementById("profileName").style.display = "block";
         document.getElementById('hrefLinks').style.display = "none";
+        document.getElementById('signup').style.display = "none";
+        document.getElementById('errorMessage').innerHTML = "User already signed in, please sign out to create a new user.";
         document.getElementById("profileName").innerHTML = username;
     }
 }
