@@ -1,4 +1,3 @@
-var authHeaderValue = null;
 var username = null;
 var password = null;
 
@@ -25,11 +24,11 @@ window.onload = function() {
 }
 
 function newUser() {
-    var user = document.getElementById("username").value;
-    var pass = document.getElementById("password").value;
+    username = document.getElementById("username").value;
+    password = document.getElementById("password").value;
     var newUser = {
-        "username": user,
-        "password": pass
+        "username": username,
+        "password": password
     }
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.open("POST", "http://Moviedbjava-env.eba-pppkpw72.us-west-2.elasticbeanstalk.com:5000/user/newUser");
@@ -42,9 +41,13 @@ function newUser() {
             document.getElementById("password").value = "";
             makeCookie();
             username = getCookie("username");
+            password = getCookie("password")
             document.getElementById("profileName").innerHTML = username;
             sessionStorage.setItem("user", "0")
+            // location.reload();
             window.location.href = 'index.html';
+        } else {
+            document.getElementById("errorMessage").value = "User with username" + username + " already exists";
         }
     }
     xmlHttp.send(JSON.stringify(newUser));
@@ -78,7 +81,7 @@ function makeCookie() {
     document.cookie = "password=" + password + "; path=/profile.html";
 }
 
-//show signed in/signed out tags
+// show signed in/signed out tags
 function showProfileTags() {
     if (sessionStorage.getItem("user") === null) {
         document.getElementById('accountLinks').style.display = "none";
@@ -88,6 +91,8 @@ function showProfileTags() {
         document.getElementById('accountLinks').style.display = "block";
         document.getElementById("profileName").style.display = "block";
         document.getElementById('hrefLinks').style.display = "none";
+        document.getElementById('signup').style.display = "none";
+        document.getElementById('errorMessage').innerHTML = "User already signed in, please sign out to create a new user.";
         document.getElementById("profileName").innerHTML = username;
     }
 }

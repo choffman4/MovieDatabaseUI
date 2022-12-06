@@ -13,7 +13,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.AuthenticationEntryPoint;
-import org.springframework.web.bind.annotation.CrossOrigin;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -28,7 +27,6 @@ import java.util.List;
 
 @Configuration
 @EnableWebSecurity
-@CrossOrigin
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     static String url = "jdbc:mysql://awseb-e-ctpmnqybmw-stack-awsebrdsdatabase-gmem0u0zwemc.ciabqvuwkkzn.us-west-2.rds.amazonaws.com:3306/" +
@@ -94,7 +92,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/movie.html").permitAll()
                 .antMatchers("/sign_up.html").permitAll()
                 .antMatchers("/user/newUser").permitAll()
-                .antMatchers("/user/login/{username}/{password}").permitAll()
+                .antMatchers("/user/login").permitAll()
                 .antMatchers("/javascript/login.js").permitAll()
                 .antMatchers("/javascript/index.js").permitAll()
                 .antMatchers("/javascript/sign_up.js").permitAll()
