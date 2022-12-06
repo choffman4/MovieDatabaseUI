@@ -93,12 +93,12 @@ function fetchMovie(imdbID) {
 function showProfileTags() {
     if (sessionStorage.getItem("user") === null) {
         document.getElementById('accountLinks').style.display = "none";
-        document.getElementById('hrefLinks').style.display = "block";
+        document.getElementById('userLinks').style.display = "block";
         document.getElementById("profileName").style.display = "none";
     } else {
         document.getElementById('accountLinks').style.display = "block";
         document.getElementById("profileName").style.display = "block";
-        document.getElementById('hrefLinks').style.display = "none";
+        document.getElementById('userLinks').style.display = "none";
         document.getElementById("profileName").innerHTML = username;
     }
 }

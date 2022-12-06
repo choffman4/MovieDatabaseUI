@@ -36,10 +36,10 @@ function login() {
 function showLoginForm(bTF) {
     if (bTF === true) {
         document.getElementById('accountLinks').style.visibility = "block";
-        document.getElementById('hrefLinks').style.visibility = "none";
+        document.getElementById('userLinks').style.visibility = "none";
     } else {
         document.getElementById('accountLinks').style.visibility = "none";
-        document.getElementById('hrefLinks').style.visibility = "block";
+        document.getElementById('userLinks').style.visibility = "block";
     }
 }
 
@@ -105,12 +105,12 @@ function getCookie(cname) {
 function showProfileTags() {
     if (sessionStorage.getItem("user") === null) {
         document.getElementById('accountLinks').style.display = "none";
-        document.getElementById('hrefLinks').style.display = "block";
+        document.getElementById('userLinks').style.display = "block";
         document.getElementById("profileName").style.display = "none";
     } else {
         document.getElementById('accountLinks').style.display = "block";
         document.getElementById("profileName").style.display = "block";
-        document.getElementById('hrefLinks').style.display = "none";
+        document.getElementById('userLinks').style.display = "none";
         document.getElementById("profileName").innerHTML = username;
     }
 }

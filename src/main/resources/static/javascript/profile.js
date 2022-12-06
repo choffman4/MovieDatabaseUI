@@ -23,32 +23,7 @@ window.onload = function() {
     username = getCookie("username");
     password = getCookie("password");
     showProfileTags();
-    // checkUser();
 }
-
-// check if user is signed in to display profile data
-// function checkUser() {
-//     authHeaderValue = "Basic " + btoa(username + ":" + password); //btoa base 64 encoding
-//
-//     var user = {
-//         "username": username,
-//         "password": password
-//     }
-//
-//     var xmlHttp = new XMLHttpRequest();
-//     xmlHttp.open("POST", "http://localhost:8081/user/login", true);
-//     xmlHttp.setRequestHeader("Authorization", authHeaderValue);
-//     xmlHttp.setRequestHeader("Content-Type", "application/json");
-//     xmlHttp.onreadystatechange = function () {
-//         if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-//             foundUser = JSON.parse(this.responseText)
-//             displayProfile()
-//         } else if (this.readyState === XMLHttpRequest.DONE && this.status === 401) {
-//             alert(this.status)
-//         }
-//     }
-//     xmlHttp.send(JSON.stringify(user));
-// }
 
 function displayProfile() {
     var profileInfo = document.getElementById("profileInfo");
@@ -62,9 +37,9 @@ function displayProfile() {
 function showProfileTags() {
     if (sessionStorage.getItem("user") === null) {
         document.getElementById('accountLinks').style.display = "none";
-        document.getElementById('hrefLinks').style.display = "block";
+        document.getElementById('userLinks').style.display = "block";
     } else {
         document.getElementById('accountLinks').style.display = "block";
-        document.getElementById('hrefLinks').style.display = "none";
+        document.getElementById('userLinks').style.display = "none";
     }
 }
