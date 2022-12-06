@@ -3,7 +3,6 @@ package connor.josh.moviedatabaseui;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
-import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -17,14 +16,6 @@ public class UserBLL {
     static String user = "admin";
     static String pass = "password";
 
-    @Autowired
-    public InMemoryUserDetailsManager inMemoryUserDetailsManager;
-
-    @Autowired
-    public PasswordEncoder passwordEncoder;
-
-
-
     public void newUser(User newUser) {
         String sql = "INSERT INTO moviedb.useraccount (username, password) Values(?, ?)";
 
@@ -36,15 +27,9 @@ public class UserBLL {
             pst.setString(2, newUser.getPassword());
             pst.executeUpdate();
 
-            inMemoryUserDetailsManager.createUser(org.springframework.security.core.userdetails.User.withUsername(newUser.getUsername())
-                    .password(passwordEncoder.encode(newUser.getPassword()))
-                    .roles("USER").build());
-
         } catch (Exception e) {
             e.printStackTrace();
-            System.err.println(e);
         }
-
     }
 
     public User accountLogin(String username, String password) {

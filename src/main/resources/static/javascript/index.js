@@ -1,4 +1,3 @@
-var authHeaderValue = null;
 var username = null;
 var password = null;
 
@@ -39,10 +38,10 @@ function fetchMovie(imdbID) {
 function showProfileTags(bTF) {
     if (bTF === true) {
         document.getElementById('accountLinks').style.visibility = "visible";
-        document.getElementById('hrefLinks').style.visibility = "hidden";
+        document.getElementById('userLinks').style.visibility = "hidden";
     } else {
         document.getElementById('accountLinks').style.visibility = "hidden";
-        document.getElementById('hrefLinks').style.visibility = "visible";
+        document.getElementById('userLinks').style.visibility = "visible";
     }
 }
 
@@ -126,12 +125,12 @@ function fetchPreviousMovies(pageNumber, searchTerm) {
 function showProfileTags() {
     if (sessionStorage.getItem("user") === null) {
         document.getElementById('accountLinks').style.display = "none";
-        document.getElementById('hrefLinks').style.display = "block";
+        document.getElementById('userLinks').style.display = "block";
         document.getElementById("profileName").style.display = "none";
     } else {
         document.getElementById('accountLinks').style.display = "block";
         document.getElementById("profileName").style.display = "block";
-        document.getElementById('hrefLinks').style.display = "none";
+        document.getElementById('userLinks').style.display = "none";
         document.getElementById("profileName").innerHTML = username;
     }
 }

@@ -16,12 +16,21 @@ public class UserRestController {
 
     UserBLL ub = new UserBLL();
 
+    @Autowired
+    public InMemoryUserDetailsManager inMemoryUserDetailsManager;
+
+    @Autowired
+    public PasswordEncoder passwordEncoder;
+
     @RequestMapping(path = "/newUser", method = RequestMethod.POST)
     @ResponseBody
     public void createUser(@RequestBody User user) throws IOException {
-        ub.newUser(user);
-
-
+        if(!inMemoryUserDetailsManager.userExists(user.getUsername())) {
+            ub.newUser(user);
+            inMemoryUserDetailsManager.createUser(org.springframework.security.core.userdetails.User.withUsername(user.getUsername())
+                    .password(passwordEncoder.encode(user.getPassword()))
+                    .roles("USER").build());
+        }
     }
 
     @RequestMapping(path = "/updateUsername/{currentUsername}/{newUsername}/{password}", method = RequestMethod.PUT)
