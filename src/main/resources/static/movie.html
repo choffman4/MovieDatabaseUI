@@ -6,9 +6,14 @@
 
     <script src="javascript/movie.js"></script>
     <script src="javascript/signout.js"></script>
-</head>
-<body>
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body class="banner">
+<div class="card" style="width: 90%; padding: 15px; margin-left: auto; margin-right: auto; margin-top: 4.5%;">
 <div STYLE="font-size:18.0pt"  id="homepageHref"><a href="index.html" > Josh & Con MovieDB </a></div>
 </br> <hr/>
 <h1>Movie Database Page!!!</h1>
@@ -20,18 +25,14 @@
 <div id="buttonLocation">
     <textfield id="likes"></textfield>
     <br/>
-</div>
-<div>
     <p id ="totalLikes"></p>
-</div>
-<div>
     <p id ="likes"></p>
 
 </div>
 
 </br>
 
-<div id="hrefLinks">
+<div id="userLinks">
     <a href="login.html" > Login </a><br/>
     <a href="sign_up.html" > Sign Up </a>
 </div>
@@ -44,7 +45,7 @@
     <p id="userNameID"></p>
 </div>
 <style>
-    #hrefLinks {
+    #userLinks {
         position: absolute;
         top: 7px;
         right: 20px;
@@ -67,7 +68,7 @@
     #buttonLocation {
         position: relative;
         top:10px;
-        left:55px
+        left:15px
     }
     #homepageHref {
         position: relative;
@@ -93,7 +94,12 @@
         font-size: 12px;
         font-weight: bold;
     }
+    .banner {
+        background-image: url(http://www.24hourmoviemarathon.com/wp-content/uploads/2014/11/imdb_top_250.jpg);
+        background-sizer: cover;
+    }
 </style>
+</div>
 </body>
 <footer id="foot">
     Powered by ©The OMDb API
