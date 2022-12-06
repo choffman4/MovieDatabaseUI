@@ -38,7 +38,6 @@ function fetchMovie(imdbID) {
 
 //movie recommends incomplete
 function getMovieRecommends(imdbid) {
-    var movieLikes = document.getElementById("totalLikes");
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.open("GET", "http://Moviedbjava-env.eba-pppkpw72.us-west-2.elasticbeanstalk.com:5000/movies/recommends/" + imdbid, true);
     xmlHttp.onreadystatechange = function () {
