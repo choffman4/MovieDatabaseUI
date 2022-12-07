@@ -14,14 +14,14 @@ function fetchMovie(imdbID) {
     })
         .then((res) => res.json())
         .then((res) => {
-            var movieHTML = "</br>" + "<img src='" + res.Poster + "' width='185' height='273.79' >"
+            var movieHTML = "</br><div id='allMovieDetails'><img src='" + res.Poster + "' width='185' height='273.79' >"
                 + "<div id='movieDetails'> <h4>" + res.Title + "</h4><p>"+ "Released: " + res.Released + ","
                 + "</br>" + "Rated: "+ res.Rated + "," + "</br>" + "Runtime: " + res.Runtime + "," + "</br>"
                 + "Genre: " + res.Genre + "," + "</br>" + "Director: " + res.Director + "," + "</br>"
                 + "Writer: " + res.Writer + "," + "</br>" + "Actors: " + res.Actors + "," + "</br>" + "Language: "
                 + res.Language + "," + "</br>" + "Country: " + res.Country + "," + "</br>" + "Awards: "
                 + res.Awards + "," + "</br>" + "BoxOffice Sales: " + res.BoxOffice + "," + "</br>" + "Metascore: "
-                + res.Metascore + "," + "</br>" + "imdbRating: " + res.imdbRating  +"</p></div>"
+                + res.Metascore + "," + "</br>" + "imdbRating: " + res.imdbRating  +"</p></div></div>"
             movieList.innerHTML += movieHTML;
 
             var buttonHTML = `<div id="buttonLocation">` +
