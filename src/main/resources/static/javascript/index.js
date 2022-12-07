@@ -23,8 +23,8 @@ window.onload = function() {
     username = getCookie("username");
     password = getCookie("password");
     showProfileTags();
-    if(sessionStorage.getItem("searchTerm") && sessionStorage.getItem("searchTerm") != null) {
-        fetchPreviousMovies(1, sessionStorage.getItem("searchTerm"))
+    if(sessionStorage.getItem("pageNumber") != null && sessionStorage.getItem("searchTerm") != null) {
+        currentPage(sessionStorage.getItem("searchTerm"), sessionStorage.getItem("pageNumber"))
     }
 }
 
@@ -34,91 +34,73 @@ function fetchMovie(imdbID) {
     window.location.href = 'movie.html';
 }
 
-//show signed in/signed out tags
-function showProfileTags(bTF) {
-    if (bTF === true) {
-        document.getElementById('accountLinks').style.visibility = "visible";
-        document.getElementById('userLinks').style.visibility = "hidden";
-    } else {
-        document.getElementById('accountLinks').style.visibility = "hidden";
-        document.getElementById('userLinks').style.visibility = "visible";
-    }
+function firstMovieSearch() {
+    let searchTerm = document.getElementById("entity_search").value;
+    let pageNumber = "1";
+    sessionStorage.setItem("searchTerm", searchTerm);
+    sessionStorage.setItem("pageNumber", "1")
+    fetchMoviesPage(searchTerm, pageNumber)
 }
+
+function currentPage() {
+    let searchTerm = sessionStorage.getItem("searchTerm");
+    let pageNumber = sessionStorage.getItem("pageNumber");
+    fetchMoviesPage(searchTerm, pageNumber)
+}
+
+function nextPage() {
+    let searchTerm = sessionStorage.getItem("searchTerm");
+    let pageNumber = sessionStorage.getItem("pageNumber");
+    pageNumber = parseInt(pageNumber) + 1;
+    sessionStorage.setItem("pageNumber", String(pageNumber))
+    fetchMoviesPage(searchTerm, pageNumber)
+}
+
+function prevPage() {
+    let searchTerm = sessionStorage.getItem("searchTerm");
+    let pageNumber = sessionStorage.getItem("pageNumber");
+    pageNumber = parseInt(pageNumber) - 1;
+    sessionStorage.setItem("pageNumber", String(pageNumber))
+    fetchMoviesPage(searchTerm, pageNumber)
+}
+
 
 //fetch movies with original search and page number
-function fetchMovies(pageNumber) {
-    currentPage = parseInt(pageNumber);
-    var movieList = document.getElementById("movieListHTML");
-    const searchTerm = document.getElementById("entity_search").value;
-    sessionStorage.setItem("searchTerm", searchTerm);
+function fetchMoviesPage(searchTerm, pageNumber) {
 
+    var movieList = document.getElementById("movieListHTML");
     movieList.innerHTML = "";
-    fetch("http://www.omdbapi.com/?s=" + searchTerm + "&page=" + String(currentPage) + "&type=movie&apikey=7c9d77e9", {
+
+    fetch("http://www.omdbapi.com/?s=" + searchTerm + "&page=" + String(pageNumber) + "&type=movie&apikey=7c9d77e9", {
         method: 'GET',
     })
         .then((res) => res.json())
         .then((res) => {
             for(i = 0; i < (res.Search).length; i++) {
-                var movieHTML = `</br><button type=\"button\" value="` + res.Search[i].imdbID + `" onclick="fetchMovie(this.value)">` + res.Search[i].Title + "</button><p>"
+                var movieHTML = `</br><button type=\"button\" value="` + res.Search[i].imdbID
+                    + `" onclick="fetchMovie(this.value)">` + res.Search[i].Title + "</button><p>"
                     + res.Search[i].Year + "</p>" + "<img src=" + res.Search[i].Poster
                     + `" width=\"185\" height=\"273.79\"><hr>`;
                 movieList.innerHTML += movieHTML;
             }
-            if (currentPage < Math.floor((res.totalResults)/10) && currentPage >= 2) {
+            if (pageNumber < Math.floor((res.totalResults)/10) && pageNumber >= 2) {
                 movieList.innerHTML
-                    += `<button type="button" value="` + (currentPage - 1)
-                    + `" onclick="fetchMovies(this.value)">Previous Page</button>`
-                    + `<button type="button" value="` + (currentPage + 1)
-                    + `" onclick="fetchMovies(this.value)">Next Page</button>`
+                    += `<button type="button"`
+                    + ` onclick="prevPage()">Previous Page</button>`
+                    + `<button type="button"`
+                    + ` onclick="nextPage()">Next Page</button>`
             }
-            else if (currentPage >= 2) {
+            else if (pageNumber >= 2) {
                 movieList.innerHTML
-                    += `<button type="button" value="` + (currentPage - 1)
-                    + `" onclick="fetchMovies(this.value)">Previous Page</button>`
-            } else if (currentPage < Math.floor((res.totalResults)/10)) {
-                movieList.innerHTML += `<button type="button" value="` + (currentPage + 1)
-                    + `" onclick="fetchMovies(this.value)">Next Page</button>`
+                    += `<button type="button"`
+                    + ` onclick="prevPage()">Previous Page</button>`
+            } else if (pageNumber < Math.floor((res.totalResults)/10)) {
+                movieList.innerHTML += `<button type="button"`
+                    + ` onclick="nextPage()">Next Page</button>`
             }
 
         })
 }
-
-//fetch previous movies by page number and search term.
-function fetchPreviousMovies(pageNumber, searchTerm) {
-    currentPage = parseInt(pageNumber);
-    var movieList = document.getElementById("movieListHTML");
-
-    movieList.innerHTML = "";
-    fetch("http://www.omdbapi.com/?s=" + searchTerm + "&page=" + String(currentPage) + "&type=movie&apikey=7c9d77e9", {
-        method: 'GET',
-    })
-        .then((res) => res.json())
-        .then((res) => {
-            for(i = 0; i < (res.Search).length; i++) {
-                var movieHTML = `</br><button type="button" value="` + res.Search[i].imdbID + `" onclick="fetchMovie(this.value)">` + res.Search[i].Title + "</button><p>"
-                    + res.Search[i].Year + "</p>" + "<img src=" + res.Search[i].Poster
-                    + `" width=\"185\" height=\"273.79\"><hr>`;
-                movieList.innerHTML += movieHTML;
-            }
-            if (currentPage < Math.floor((res.totalResults)/10) && currentPage >= 2) {
-                movieList.innerHTML
-                    += `<button type="button" value="` + (currentPage - 1)
-                    + `" onclick="fetchMovies(this.value)">Previous Page</button>`
-                    + `<button type="button" value="` + (currentPage + 1)
-                    + `" onclick="fetchMovies(this.value)">Next Page</button>`
-            }
-            else if (currentPage >= 2) {
-                movieList.innerHTML
-                    += `<button type="button" value="` + (currentPage - 1)
-                    + `" onclick="fetchMovies(this.value)">Previous Page</button>`
-            } else if (currentPage < Math.floor((res.totalResults)/10)) {
-                movieList.innerHTML += `<button type="button" value="` + (currentPage + 1)
-                    + `" onclick="fetchMovies(this.value)">Next Page</button>`
-            }
-
-        })
-}
-
 
 
 //show signed in/signed out tags
