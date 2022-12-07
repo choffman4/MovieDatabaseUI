@@ -32,6 +32,7 @@ function signOut()  {
 
     sessionStorage.removeItem('searchTerm')
     sessionStorage.removeItem('user');
+    sessionStorage.removeItem("pageNumber")
 
     window.location.href = 'login.html';
 }
